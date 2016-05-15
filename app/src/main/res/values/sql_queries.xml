@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string name="select_usuario_by_id">
+        SELECT usuarioId,
+            nombre,
+            sexo,
+            edad,
+        email
+        FROM usarioId = ?
+    </string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="db_v1">
+        CREATE TABLE tbl_Usuario(
+            usuarioId INTEGER NOT NULL,
+            nombre TEXT NOT NULL,
+            sexo TEXT NOT NULL,
+            edad TEXT NOT NULL,
+            email TEXT NOT NULL,
+            PRIMARY KEY(usuarioId)
+        );
+    </string>
+</resources>
