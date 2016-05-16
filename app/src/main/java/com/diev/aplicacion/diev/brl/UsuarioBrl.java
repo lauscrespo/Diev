@@ -91,7 +91,7 @@ public class UsuarioBrl {
         connection.open();
 
         String[] whereParams = new String[]{String.valueOf(ciudadId)};
-        connection.delete(Table.tbl_Usuario, " ciudadId = ? ", whereParams);
+        connection.delete(Table.tbl_Usuario, " usuarioId = ? ", whereParams);
     }
 
     public ArrayList<Usuario> selectAll() throws Exception {

@@ -6,6 +6,14 @@
             sexo,
             edad,
         email
-        FROM usarioId = ?
+        FROM usuarioId = ?
+    </string>
+    <string name="select_evento_by_id">
+        SELECT eventoId,
+            nombre,
+            descripcion,
+            hora_ini,
+        hora_fin
+        FROM eventoId = ?
     </string>
 </resources>

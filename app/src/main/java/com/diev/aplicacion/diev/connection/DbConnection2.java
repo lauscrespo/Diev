@@ -15,13 +15,13 @@ import java.io.IOException;
 import java.util.StringTokenizer;
 
 
-public class DbConnection extends SQLiteOpenHelper {
-    private static final String NOMBREDB = "/data/data/com.diev.aplicacion.diev/databases/usuario.db";
+public class DbConnection2 extends SQLiteOpenHelper {
+    private static final String NOMBREDB = "/data/data/com.diev.aplicacion.diev/databases/evento.db";
     private static final int VERSION = 2;
     private static SQLiteDatabase instance;
     private Context currentContext;
 
-    public DbConnection(Context context) {
+    public DbConnection2(Context context) {
         super(context, NOMBREDB, null, VERSION);
         this.currentContext = context;
     }
@@ -52,7 +52,7 @@ public class DbConnection extends SQLiteOpenHelper {
         boolean dbExist = dataBaseExist();
 
         if (!dbExist) {
-            executeDDL(R.string.db_v1, this.getWritableDatabase());
+            executeDDL(R.string.db_v2, this.getWritableDatabase());
         }
 
     }
@@ -66,24 +66,24 @@ public class DbConnection extends SQLiteOpenHelper {
         }
     }
 
-    public int insert(Table table, ContentValues values) {
+    public int insert(Table2 table, ContentValues values) {
         SQLiteDatabase db = getWritableDatabase();
 
         return (int) db.insertOrThrow(table.toString(), null, values);
     }
 
-    public void update(Table table, ContentValues values, String whereClause, String[] whereArgs) {
+    public void update(Table2 table, ContentValues values, String whereClause, String[] whereArgs) {
         SQLiteDatabase db = getWritableDatabase();
 
         db.update(table.toString(), values, whereClause, whereArgs);
     }
 
-    public void delete(Table table, String whereClause, String[] whereArgs) {
+    public void delete(Table2 table, String whereClause, String[] whereArgs) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(table.toString(), whereClause, whereArgs);
     }
 
-    public Cursor executeQuery(Table table, String[] columns, String whereClause, String[] selectionArgs) {
+    public Cursor executeQuery(Table2 table, String[] columns, String whereClause, String[] selectionArgs) {
         SQLiteDatabase db = getReadableDatabase();
 
         return db.query(table.toString(), columns, whereClause, selectionArgs, null, null, null);

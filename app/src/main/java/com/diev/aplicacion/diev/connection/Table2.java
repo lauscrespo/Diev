@@ -1,14 +1,14 @@
 package com.diev.aplicacion.diev.connection;
 
 
-public enum Table {
+public enum Table2 {
 
-    tbl_Usuario("tbl_Usuario");
+    tbl_Evento("tbl_Evento");
 
     private final String text;
 
 
-    Table(final String text) {
+    Table2(final String text) {
         this.text = text;
     }
 
