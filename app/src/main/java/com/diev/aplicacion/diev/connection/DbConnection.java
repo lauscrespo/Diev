@@ -50,7 +50,6 @@ public class DbConnection extends SQLiteOpenHelper {
     public void createDataBase() throws IOException {
 
         boolean dbExist = dataBaseExist();
-
         if (!dbExist) {
             executeDDL(R.string.db_v1, this.getWritableDatabase());
         }
