@@ -4,10 +4,4 @@
     <string name="action_settings">Settings</string>
     <string name="action_update">Update</string>
     <string name="calendar_view">CALENDAR</string>
-    <string name="temp">16 ºC</string>
-    <string name="pais">BO</string>
-    <string name="ciudad">SANTA CRUZ</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
