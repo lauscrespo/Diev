@@ -63,13 +63,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnShare = (Button) findViewById(R.id.btnShare);
-        btnShare.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
 
-                shareSocialNetwork();
-            }
-        });
 
 
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -89,13 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void shareSocialNetwork() {
-        Intent share = new Intent(android.content.Intent.ACTION_SEND);
-        share.putExtra(Intent.EXTRA_SUBJECT, "Diev");
-        share.setType("text/plain");
-        share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.ea.game.tetris2011_row&hl=es-419");
-         startActivity(Intent.createChooser(share, "Compartir usando..."));
-    }
+
 
 
     ///evento que guarda el usuario
@@ -129,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             objBrl.insert(usuario);
             Toast.makeText(this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
+            Intent intent= new Intent(this, CalendarActivity.class);
+            startActivity(intent);
         } catch (Exception e) {
             Log.e("MainActivity", "error al insertar usuario");
         }

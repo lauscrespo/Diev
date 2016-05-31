@@ -18,6 +18,7 @@ public class EventoBrl {
     private final String DESCRIPCION = "descripcion";
     private final String HORA_INI = "hora_ini";
     private final String HORA_FIN = "hora_fin";
+    private final String FECHA = "fecha";
 
 
     protected String[] columns;
@@ -25,7 +26,7 @@ public class EventoBrl {
 
     public EventoBrl(Context contexto) {
         this.contexto = contexto;
-        this.columns = "eventoId,usuario,descripcion,hora_ini, hora_fin".split(",");
+        this.columns = "eventoId,usuario,descripcion,hora_ini, hora_fin, fecha".split(",");
     }
 
     public int insert(Evento obj) throws Exception {
@@ -42,6 +43,9 @@ public class EventoBrl {
             throw new Exception("El ciudad no puede ser nulo o vacio");
 
         if (obj.getHora_fin() == null || obj.getHora_fin().trim().isEmpty())
+            throw new Exception("El ciudad no puede ser nulo o vacio");
+
+        if (obj.getFecha() == null || obj.getFecha().trim().isEmpty())
             throw new Exception("El ciudad no puede ser nulo o vacio");
 
 
@@ -70,6 +74,9 @@ public class EventoBrl {
             throw new Exception("El ciudad no puede ser nulo o vacio");
 
         if (obj.getHora_fin() == null || obj.getHora_fin().trim().isEmpty())
+            throw new Exception("El ciudad no puede ser nulo o vacio");
+
+        if (obj.getFecha() == null || obj.getFecha().trim().isEmpty())
             throw new Exception("El ciudad no puede ser nulo o vacio");
 
 
@@ -146,6 +153,7 @@ public class EventoBrl {
         obj.setDescripcion(cursor.getString(cursor.getColumnIndex(DESCRIPCION)));
         obj.setHora_ini(cursor.getString(cursor.getColumnIndex(HORA_INI)));
         obj.setHora_fin(cursor.getString(cursor.getColumnIndex(HORA_FIN)));
+        obj.setFecha(cursor.getString(cursor.getColumnIndex(FECHA)));
         return obj;
     }
 
@@ -157,7 +165,7 @@ public class EventoBrl {
         params.put(DESCRIPCION, obj.getDescripcion());
         params.put(HORA_INI, obj.getHora_ini());
         params.put(HORA_FIN, obj.getHora_fin());
-
+        params.put(FECHA, obj.getFecha());
         return params;
     }
 

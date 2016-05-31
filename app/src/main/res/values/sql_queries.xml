@@ -13,7 +13,8 @@
             nombre,
             descripcion,
             hora_ini,
-        hora_fin
+        hora_fin,
+        fecha
         FROM eventoId = ?
     </string>
 </resources>

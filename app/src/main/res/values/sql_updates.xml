@@ -17,6 +17,7 @@
             descripcion TEXT NOT NULL,
             hora_ini TEXT NOT NULL,
             hora_fin TEXT NOT NULL,
+            fecha TEXT NOT NULL
             PRIMARY KEY(eventoId)
         );
     </string>

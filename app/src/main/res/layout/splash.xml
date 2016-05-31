@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:text="DIEV"
         android:layout_gravity="center_horizontal"
-        android:textColor="#ff1ca5ff"
+        android:textColor="@color/negro"
         android:textAlignment="center"
         android:textSize="80px"
         android:paddingTop="30px"

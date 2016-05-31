@@ -125,12 +125,6 @@ public class DbConnection extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        /*if(oldVersion >= 1){
-            //Ejecutar la version 2
-        }
-        if(oldVersion >= 2){
-            //Ejecutar la version 3
-        }*/
 
     }
 }
