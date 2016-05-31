@@ -1,5 +1,7 @@
 package com.diev.aplicacion.diev;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static final String PARAM_USUARIO_ID = "PARAM_USUARIO_ID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
         objBrl = new UsuarioBrl(MainActivity.this);
         usuarioId = getIntent().getIntExtra(PARAM_USUARIO_ID, 0);
-        txtNombre = (EditText)findViewById(R.id.txt_Nombre);
-        txtEmail = (EditText)findViewById(R.id.txtEmail);
-        rbMujer =(RadioButton)findViewById(R.id.radioButtonMujer);
-        rbHombre =(RadioButton)findViewById(R.id.radioButtonHombre);
+        txtNombre = (EditText) findViewById(R.id.txt_Nombre);
+        txtEmail = (EditText) findViewById(R.id.txtEmail);
+        rbMujer = (RadioButton) findViewById(R.id.radioButtonMujer);
+        rbHombre = (RadioButton) findViewById(R.id.radioButtonHombre);
 
-        Spinner sp=(Spinner)findViewById(R.id.spinner);
-        ArrayAdapter adapter=ArrayAdapter.createFromResource(
+        Spinner sp = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(
                 this, R.array.edades, R.layout.spinner_item);
         sp.setAdapter(adapter);
         Button btnSave = (Button) findViewById(R.id.btn_save);
@@ -59,37 +62,58 @@ public class MainActivity extends AppCompatActivity {
                 saveUsuario();
             }
         });
-        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?>parentView, View SelectItemView,
-                                       int position, long id){
-                Toast.makeText(parentView.getContext(),
-                        "Has selecionado " + parentView.getItemAtPosition(position).toString(),Toast.LENGTH_LONG).show();
-                        Edad=parentView.getItemAtPosition(position).toString();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+        Button btnShare = (Button) findViewById(R.id.btnShare);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
+                shareSocialNetwork();
             }
         });
 
+
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                         public void onItemSelected(AdapterView<?> parentView, View SelectItemView, int position, long id) {
+                                             Edad = parentView.getItemAtPosition(position).toString();
+                                         }
+
+                                         @Override
+                                         public void onNothingSelected(AdapterView<?> parent) {
+
+                                         }
+                                     }
+
+        );
+
     }
+
+
+
+    public void shareSocialNetwork() {
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.putExtra(Intent.EXTRA_SUBJECT, "Diev");
+        share.setType("text/plain");
+        share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.ea.game.tetris2011_row&hl=es-419");
+         startActivity(Intent.createChooser(share, "Compartir usando..."));
+    }
+
+
     ///evento que guarda el usuario
-    private void saveUsuario(){
+    private void saveUsuario() {
         String nombre = txtNombre.getText().toString();
         String edad = Edad;
         String email = txtEmail.getText().toString();
 
-        if(nombre.trim().isEmpty()){
+        if (nombre.trim().isEmpty()) {
             Toast.makeText(this, "Ingrese el nombre", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(email.trim().isEmpty()){
+        if (email.trim().isEmpty()) {
             Toast.makeText(this, "Ingrese el email", Toast.LENGTH_SHORT).show();
             return;
         }
-        String result = nombre.replace(" ","");
-        Usuario usuario=new Usuario();
+        String result = nombre.replace(" ", "");
+        Usuario usuario = new Usuario();
         //llenar datos usuario
         usuario.setUsuarioId(0);
         usuario.setNombre(nombre);

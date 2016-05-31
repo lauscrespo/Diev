@@ -97,7 +97,7 @@
 
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
@@ -122,11 +122,24 @@
 
     <Spinner
         android:layout_width="wrap_content"
-        android:layout_height="80px"
+        android:layout_height="wrap_content"
         android:id="@+id/spinner"
         android:drawSelectorOnTop="true"
         android:layout_below="@+id/textView4"
         android:background="@color/colorPrimary"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Compartir"
+        android:id="@+id/btnShare"
+        android:background="#b6dbf4"
+        android:allowUndo="true"
+        android:width="200dp"
+        android:clickable="true"
+        android:layout_below="@+id/txtEmail"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
