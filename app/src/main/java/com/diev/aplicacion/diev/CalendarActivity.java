@@ -1,6 +1,7 @@
 package com.diev.aplicacion.diev;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -18,12 +19,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.diev.aplicacion.diev.httpclient.HttpConnection;
 import com.diev.aplicacion.diev.httpclient.MethodType;
@@ -46,13 +48,8 @@ import java.util.List;
 
 import static com.diev.aplicacion.diev.R.menu.update;
 
-public class CalendarActivity extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity implements View.OnClickListener {
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     private DrawerLayout mDrawerLayout;
 
@@ -71,7 +68,11 @@ public class CalendarActivity extends AppCompatActivity {
 
 
     private LinearLayout geoDetailsContainer;
-    private ProgressDialog progressDialog;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,121 +92,6 @@ public class CalendarActivity extends AppCompatActivity {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
-        if(navigationView != null){
-//            ciudad = new City();
-//
-//
-//            city = (TextView) findViewById(R.id.ciudad);
-//            tempAct = (TextView) findViewById(R.id.temp);
-//            country = (TextView) findViewById(R.id.pais);
-//
-//            geoDetailsContainer = (LinearLayout) findViewById(
-//                    R.id.geo_container);
-//          //  geoDetailsContainer.setVisibility(View.GONE);
-//
-//            progressDialog = new ProgressDialog(this);
-//            progressDialog.setIndeterminate(true);
-//            progressDialog.setCancelable(false);
-//            progressDialog.setTitle("Loading");
-//
-//            task = new AsyncTask<RequestConfiguration, String, String>() {
-//
-//                @Override
-//                protected void onPreExecute() {
-//                    progressDialog.show();
-//                }
-//
-//                @Override
-//                protected String doInBackground(RequestConfiguration... params) {
-//                    RequestConfiguration theConfig = params[0];
-//                    publishProgress("Loading Info");
-//                    String json = null;
-//                    try {
-//                        json = HttpConnection.sendRequest(theConfig);
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                    return json;
-//                }
-//
-//                @Override
-//                protected void onPostExecute(String result) {
-//                    if (result == null || result.trim().isEmpty()) {
-//                        country.setText("Error Loading the Information");
-//                        city.setVisibility(View.GONE);
-//                        tempAct.setVisibility(View.GONE);
-//
-//                        geoDetailsContainer.setVisibility(View.VISIBLE);
-//                        progressDialog.dismiss();
-//                        return;
-//                    }
-//
-//                    try {
-//                        JSONObject jsonObject = new JSONObject(result);
-//                        JSONObject main = jsonObject.getJSONObject("main");
-//                        JSONObject sys = jsonObject.getJSONObject("sys");
-//                        JSONArray weather = jsonObject.getJSONArray("weather");
-//
-//                        int id = sys.getInt("id");
-//                        String city = jsonObject.getString("name");
-//                        String temp = main.getString("temp");
-//                        String country = sys.getString("country");
-//
-//                        ciudad.setCiudadId(id);
-//                        ciudad.setName(city);
-//                        ciudad.setTemp(temp);
-//                        ciudad.setCountry(country);
-//
-//
-//                        CalendarActivity.this.city.setText(city);
-//                        tempAct.setText(temp + "ºC");
-//                        CalendarActivity.this.country.setText(country);
-//
-//                        geoDetailsContainer.setVisibility(View.VISIBLE);
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    progressDialog.dismiss();
-//
-//                }
-//
-//                @Override
-//                protected void onProgressUpdate(String... values) {
-//                    super.onProgressUpdate(values);
-//                    progressDialog.setMessage(values[0]);
-//                }
-//            };
-//
-//            GenericListener<Location> onLocationReady = new GenericListener<Location>() {
-//                @Override
-//                public void action(Location objLocation) {
-//                    currentLocation = objLocation;
-//                    latitud =  objLocation.getLatitude();
-//                    longitud = objLocation.getLongitude();
-//                    locationListener.stop();
-//                    locationListener = null;
-//
-//
-//                    Hashtable<String, String> params = new Hashtable<>();
-//                    params.put("units", "metric");
-//                    params.put("appid", "3ce8b36f20a07c6ab90a9948d6dc1050");
-//                    params.put("lat", String.valueOf(latitud));
-//                    params.put("lon", String.valueOf(longitud));
-//
-//                    String url = "http://api.openweathermap.org/data/2.5/weather?";
-//
-//                    RequestConfiguration configuration =
-//                            new StandarRequestConfiguration(url,
-//                                    MethodType.GET, params);
-//
-//                    task.execute(new RequestConfiguration[]{configuration});
-//                }
-//            };
-//            this.locationListener = new GeoLocationListener(this, onLocationReady);
-        }
-
         // Adding menu icon to Toolbar
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
@@ -213,7 +99,6 @@ public class CalendarActivity extends AppCompatActivity {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // Set behavior of Navigation drawer
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     // This method will trigger on item Click of navigation menu
@@ -221,44 +106,35 @@ public class CalendarActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // Set item in checked state
                         menuItem.setChecked(true);
-                        // TODO: handle navigation
-                        // Closing drawer on item click
+                        if ("COMPARTIR APP".equals(menuItem.getTitle().toString())){
+                            shareSocialNetwork();
+
+                        }
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
                 });
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_event);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(v, "Add an Event",
-                        Snackbar.LENGTH_LONG).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_event);
+//        fab.setOnClickListener(this);
 
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(locationListener != null)
+        if (locationListener != null)
             locationListener.resume();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if(locationListener != null)
-            locationListener.start();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
+        if (locationListener != null)
+            locationListener.start();
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
                 "Calendar Page", // TODO: Define a title for the content shown.
@@ -275,8 +151,6 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        if(locationListener != null)
-            locationListener.stop();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
@@ -290,6 +164,10 @@ public class CalendarActivity extends AppCompatActivity {
                 Uri.parse("android-app://com.diev.aplicacion.diev/http/host/path")
         );
         AppIndex.AppIndexApi.end(client, viewAction);
+        if (locationListener != null)
+            locationListener.stop();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.disconnect();
     }
 
@@ -303,7 +181,7 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(locationListener != null)
+        if (locationListener != null)
             locationListener.pause();
     }
 
@@ -318,6 +196,8 @@ public class CalendarActivity extends AppCompatActivity {
             return true;
         } else if (id == android.R.id.home) {
             mDrawerLayout.openDrawer(GravityCompat.START);
+            Log.i("Menu", "Se abrio el menu con temp");
+            cargarWeather();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -329,6 +209,7 @@ public class CalendarActivity extends AppCompatActivity {
         adapter.addFragment(new DayContent(), "DAY");
         viewPager.setAdapter(adapter);
     }
+
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -359,6 +240,127 @@ public class CalendarActivity extends AppCompatActivity {
 
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+//        if (v.getId() == R.id.add_event) {
+//            Toast.makeText(this, "Add an Event", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(this, CrearEvento.class);
+//            startActivity(intent);
+//        }
+    }
+
+    public void cargarWeather() {
+
+        Log.e("Weather", "Se cargo el Clima");
+
+        ciudad = new City();
+
+
+        city = (TextView) findViewById(R.id.ciudad);
+        tempAct = (TextView) findViewById(R.id.temp);
+        country = (TextView) findViewById(R.id.pais);
+
+        geoDetailsContainer = (LinearLayout) findViewById(
+                R.id.geo_container);
+        //geoDetailsContainer.setVisibility(View.GONE);
+
+        task = new AsyncTask<RequestConfiguration, String, String>() {
+
+            @Override
+            protected void onPreExecute() {
+            }
+
+            @Override
+            protected String doInBackground(RequestConfiguration... params) {
+                RequestConfiguration theConfig = params[0];
+                publishProgress("Loading Info");
+                String json = null;
+                try {
+                    json = HttpConnection.sendRequest(theConfig);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return json;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                if (result == null || result.trim().isEmpty()) {
+                    country.setText("BO");
+                    city.setText("Santa Cruz de la Sierra");
+                    tempAct.setText("1ºC");
+                    geoDetailsContainer.setVisibility(View.VISIBLE);
+                    return;
+                }
+
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    JSONObject main = jsonObject.getJSONObject("main");
+                    JSONObject sys = jsonObject.getJSONObject("sys");
+
+                    int id = sys.getInt("id");
+                    String city = jsonObject.getString("name");
+                    String temp = main.getString("temp");
+                    String country = sys.getString("country");
+
+                    ciudad.setCiudadId(id);
+                    ciudad.setName(city);
+                    ciudad.setTemp(temp);
+                    ciudad.setCountry(country);
+
+                    tempAct.setText(temp + "ºC");
+                    CalendarActivity.this.country.setText(country);
+                    CalendarActivity.this.city.setText(city);
+                    geoDetailsContainer.setVisibility(View.VISIBLE);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            protected void onProgressUpdate(String... values) {
+                super.onProgressUpdate(values);
+            }
+        };
+
+        GenericListener<Location> onLocationReady = new GenericListener<Location>() {
+            @Override
+            public void action(Location objLocation) {
+                currentLocation = objLocation;
+                latitud = objLocation.getLatitude();
+                longitud = objLocation.getLongitude();
+                locationListener.stop();
+                locationListener = null;
+
+
+                Hashtable<String, String> params = new Hashtable<>();
+                params.put("units", "metric");
+                params.put("appid", "3ce8b36f20a07c6ab90a9948d6dc1050");
+                params.put("lat", String.valueOf(latitud));
+                params.put("lon", String.valueOf(longitud));
+
+                String url = "http://api.openweathermap.org/data/2.5/weather?";
+
+                RequestConfiguration configuration =
+                        new StandarRequestConfiguration(url,
+                                MethodType.GET, params);
+
+                task.execute(configuration);
+            }
+        };
+        this.locationListener = new GeoLocationListener(this, onLocationReady);
+    }
+
+    public void shareSocialNetwork() {
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.putExtra(Intent.EXTRA_SUBJECT, "Diev");
+        share.setType("text/plain");
+        share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.ea.game.tetris2011_row&hl=es-419");
+        startActivity(Intent.createChooser(share, "Compartir usando..."));
     }
 }
 

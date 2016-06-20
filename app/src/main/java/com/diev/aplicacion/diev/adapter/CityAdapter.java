@@ -51,7 +51,7 @@ public class CityAdapter extends BaseAdapter {
         City objCity = citiesList.get(position);
         viewHolder.country.setText("Pais: " + objCity.getCountry());
         viewHolder.temp.setText("Temperatura: " + objCity.getTemp() + "ºC");
-        viewHolder.name.setText((CharSequence) objCity.getName());
+        viewHolder.name.setText(objCity.getName());
 
         return convertView;
     }

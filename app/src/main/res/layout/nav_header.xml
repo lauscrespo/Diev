@@ -6,40 +6,35 @@
     android:orientation="vertical"
     android:padding="@dimen/md_keylines"
     android:weightSum="1"
-    android:gravity="top|center">
+    android:gravity="top|center"
+    android:id="@+id/geo_container">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/geo_container">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0ºC"
+        android:id="@+id/temp"
+        android:textColor="#fffefe"
+        android:textSize="60dp"
+        android:layout_gravity="center_horizontal" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="16"
-            android:id="@+id/temp"
-            android:textColor="#fffefe"
-            android:textSize="60sp"
-            android:layout_gravity="center_horizontal" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BO"
+        android:id="@+id/pais"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff"
+        android:textSize="25sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BO"
-            android:id="@+id/pais"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#ffffff"
-            android:textSize="25sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Santa Cruz de la Sierra"
+        android:id="@+id/ciudad"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Santa Cruz"
-            android:id="@+id/ciudad"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#ffffff"
-            android:textSize="30sp" />
-    </LinearLayout>
 
 </LinearLayout>

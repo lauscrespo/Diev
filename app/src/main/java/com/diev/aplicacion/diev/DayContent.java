@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 
 import com.diev.aplicacion.diev.R;
 
+import static com.diev.aplicacion.diev.R.layout.fragment_day_content;
+import static com.diev.aplicacion.diev.R.layout.fragment_month_content;
+
 public class DayContent extends Fragment {
 
     @Override
@@ -23,7 +26,7 @@ public class DayContent extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        inflater.inflate(R.layout.fragment_day_content, null);
+        inflater.inflate(fragment_day_content, null);
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(
                 R.layout.recycler_view, container, false);
@@ -37,7 +40,7 @@ public class DayContent extends Fragment {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.fragment_month_content, parent, false));
+            super(inflater.inflate(fragment_day_content, parent, false));
         }
     }
 

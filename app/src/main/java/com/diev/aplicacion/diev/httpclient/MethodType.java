@@ -7,7 +7,7 @@ public enum MethodType {
 
     private final String value;
 
-    private MethodType(final String value) {
+    MethodType(final String value) {
         this.value = value;
     }
 

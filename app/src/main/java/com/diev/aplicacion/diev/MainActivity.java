@@ -7,44 +7,114 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CalendarView;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.diev.aplicacion.diev.brl.UsuarioBrl;
+import com.diev.aplicacion.diev.model.Usuario;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+public class MainActivity extends AppCompatActivity {
+    UsuarioBrl objBrl;
+    private int usuarioId;
+    private EditText txtNombre;
+    private String Edad;
+    private EditText txtEmail;
+    private RadioButton rbMujer;
+    private RadioButton rbHombre;
+
+
+    public static final String PARAM_USUARIO_ID = "PARAM_USUARIO_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(this
-                //new View.OnClickListener() {
-                // @Override
-                //public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                // }
-                // }
+        objBrl = new UsuarioBrl(MainActivity.this);
+        usuarioId = getIntent().getIntExtra(PARAM_USUARIO_ID, 0);
+        txtNombre = (EditText) findViewById(R.id.txt_Nombre);
+        txtEmail = (EditText) findViewById(R.id.txtEmail);
+        rbMujer = (RadioButton) findViewById(R.id.radioButtonMujer);
+        rbHombre = (RadioButton) findViewById(R.id.radioButtonHombre);
+
+        Spinner sp = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(
+                this, R.array.edades, R.layout.spinner_item);
+        sp.setAdapter(adapter);
+        Button btnSave = (Button) findViewById(R.id.btn_save);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveUsuario();
+            }
+        });
+
+
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                         public void onItemSelected(AdapterView<?> parentView, View SelectItemView, int position, long id) {
+                                             Edad = parentView.getItemAtPosition(position).toString();
+                                         }
+
+                                         @Override
+                                         public void onNothingSelected(AdapterView<?> parent) {
+
+                                         }
+                                     }
         );
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+    }
+
+
+    ///evento que guarda el usuario
+    private void saveUsuario() {
+        String nombre = txtNombre.getText().toString();
+        String edad = Edad;
+        String email = txtEmail.getText().toString();
+
+        if (nombre.trim().isEmpty()) {
+            Toast.makeText(this, "Ingrese el nombre", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (email.trim().isEmpty()) {
+            Toast.makeText(this, "Ingrese el email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String result = nombre.replace(" ", "");
+        Usuario usuario = new Usuario();
+        //llenar datos usuario
+        usuario.setUsuarioId(0);
+        usuario.setNombre(nombre);
+        usuario.setEdad(edad);
+        usuario.setEmail(email);
+        if (rbMujer.isChecked()) {
+            usuario.setSexo("Mujer");
+        }
+        if (rbHombre.isChecked()) {
+            usuario.setSexo("Hombre");
+        }
+
+        try {
+            objBrl.insert(usuario);
+            Toast.makeText(this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, CalendarActivity.class);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e("MainActivity", "error al insertar usuario");
+        }
     }
 
     @Override
@@ -67,53 +137,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.fab) {
-            Intent intent = new Intent(this, CalendarActivity.class);
-            startActivity(intent);
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.diev.aplicacion.diev/http/host/path")
-        );
-        AppIndex.AppIndexApi.start(client, viewAction);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Main Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.diev.aplicacion.diev/http/host/path")
-        );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
     }
 }

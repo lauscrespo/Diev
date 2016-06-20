@@ -11,9 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alamkanak.weekview.WeekView;
+import com.alamkanak.weekview.WeekViewEvent;
+
+import java.util.List;
+
 
 public class WeekContent extends Fragment {
 
+    private WeekView mWeekView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +28,7 @@ public class WeekContent extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        inflater.inflate(R.layout.fragment_week_content, null);
+        View view= inflater.inflate(R.layout.fragment_week_content, null);
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(
                 R.layout.recycler_view, container, false);
@@ -30,13 +36,14 @@ public class WeekContent extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+       mWeekView = (WeekView) view.findViewById(R.id.weekView);
 
         return recyclerView;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.fragment_month_content, parent, false));
+            super(inflater.inflate(R.layout.fragment_week_content, parent, false));
         }
     }
 
