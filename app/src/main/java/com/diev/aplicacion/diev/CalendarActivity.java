@@ -116,8 +116,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                 });
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_event);
-        fab.setOnClickListener(this);
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_event);
+//        fab.setOnClickListener(this);
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
@@ -136,10 +136,14 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         if (locationListener != null)
             locationListener.start();
         Action viewAction = Action.newAction(
-                Action.TYPE_VIEW,
-                "Calendar Page",
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Calendar Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
                 Uri.parse("http://host/path"),
-               Uri.parse("android-app://com.diev.aplicacion.diev/http/host/path")
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.diev.aplicacion.diev/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
     }
@@ -150,9 +154,13 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
-                Action.TYPE_VIEW,
-                "Calendar Page",
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Calendar Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
                 Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
                 Uri.parse("android-app://com.diev.aplicacion.diev/http/host/path")
         );
         AppIndex.AppIndexApi.end(client, viewAction);
@@ -197,7 +205,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new MonthContent(), "MONTH");
-       viewPager.setAdapter(adapter);
+        adapter.addFragment(new WeekContent(), "WEEK");
+        adapter.addFragment(new DayContent(), "DAY");
+        viewPager.setAdapter(adapter);
     }
 
 
@@ -234,11 +244,11 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.add_event) {
-            Toast.makeText(this, "Add an Event", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, CrearEvento.class);
-            startActivity(intent);
-        }
+//        if (v.getId() == R.id.add_event) {
+//            Toast.makeText(this, "Add an Event", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(this, CrearEvento.class);
+//            startActivity(intent);
+//        }
     }
 
     public void cargarWeather() {

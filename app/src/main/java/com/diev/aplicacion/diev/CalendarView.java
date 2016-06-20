@@ -1,10 +1,8 @@
 package com.diev.aplicacion.diev;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -21,8 +19,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
-
-import static android.support.v4.app.ActivityCompat.startActivity;
 
 /**
  * Created by USUARIO on 11/06/2016.
@@ -118,7 +114,8 @@ public class CalendarView extends LinearLayout{
                 //Mostrar la fecha seleccionada
                 TextView txt_hide_date = (TextView)view.findViewById(R.id.txt_hide_date);
                 Toast.makeText(context, txt_hide_date.getText().toString(), Toast.LENGTH_SHORT).show();
-                Intent intent= new Intent(context, SugerContent.class);
+                CrearEvento.setFecha(txt_hide_date.getText().toString());
+                Intent intent = new Intent(getContext(), CrearEvento.class);
                 context.startActivity(intent);
 
             }

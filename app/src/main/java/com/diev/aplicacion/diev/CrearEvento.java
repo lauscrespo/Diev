@@ -37,6 +37,15 @@ public class CrearEvento extends Activity implements
     EditText  txtTime2;
     private int mHour, mMinute;
     private int mHour2, mMinute2;
+    private static String fecha;
+
+    public static String getFecha() {
+        return fecha;
+    }
+
+    public static void setFecha(String fecha) {
+        CrearEvento.fecha = fecha;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +64,7 @@ public class CrearEvento extends Activity implements
         txtNombre = (EditText) findViewById(R.id.txtNombre);
         txtDescripcion = (EditText) findViewById(R.id.txtDescripcion);
 
-        Button btnSave = (Button) findViewById(R.id.btn_save);
+        Button btnSave = (Button) findViewById(R.id.btn_saveEvent);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,6 +119,7 @@ public class CrearEvento extends Activity implements
         String descripcion = txtDescripcion.getText().toString();
         String horaIni = txtTime.getText().toString();
         String horaFin = txtTime2.getText().toString();
+        String fecha= getFecha();
 
         if (nombre.trim().isEmpty()) {
             Toast.makeText(this, "Ingrese el nombre", Toast.LENGTH_SHORT).show();
@@ -127,6 +137,10 @@ public class CrearEvento extends Activity implements
             Toast.makeText(this, "Ingrese la hora final", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (fecha.trim().isEmpty()) {
+            Toast.makeText(this, "Fecha vacia", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String result = nombre.replace(" ", "");
         Evento evento = new Evento();
 
@@ -136,6 +150,7 @@ public class CrearEvento extends Activity implements
         evento.setDescripcion(descripcion);
         evento.setHora_ini(horaIni);
         evento.setHora_fin(horaFin);
+        evento.setFecha(fecha);
 
         try {
             objBrl.insert(evento);

@@ -25,7 +25,7 @@ public class UsuarioBrl {
 
     public UsuarioBrl(Context contexto) {
         this.contexto = contexto;
-        this.columns = "usuarioId,usuario,sexo,edad, email".split(",");
+        this.columns = "usuarioId,nombre,sexo,edad, email".split(",");
     }
 
     public int insert(Usuario obj) throws Exception {

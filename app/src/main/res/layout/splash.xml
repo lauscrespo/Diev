@@ -6,22 +6,13 @@
     android:weightSum="1">
 
     <ImageView android:id="@+id/splashscreen"
-        android:layout_height="wrap_content"
-        android:layout_width="171dp"
-        android:src="@mipmap/ic_launcher"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@drawable/logo"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.34"
-        android:paddingTop="200px"/>
-
-    <TextView android:id="@+id/LblEtiqueta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DIEV"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/negro"
-        android:textAlignment="center"
-        android:textSize="80px"
-        android:paddingTop="30px"
-        android:typeface="monospace"/>
+        android:paddingTop="45dp"
+        android:paddingBottom="45dp"
+        android:paddingLeft="120dp"
+        android:paddingRight="120dp" />
 
 </LinearLayout>

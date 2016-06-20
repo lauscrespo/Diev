@@ -64,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                          public void onItemSelected(AdapterView<?> parentView, View SelectItemView, int position, long id) {
                                              Edad = parentView.getItemAtPosition(position).toString();
@@ -76,14 +74,9 @@ public class MainActivity extends AppCompatActivity {
 
                                          }
                                      }
-
         );
 
     }
-
-
-
-
 
 
     ///evento que guarda el usuario
@@ -117,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             objBrl.insert(usuario);
             Toast.makeText(this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
-            Intent intent= new Intent(this, CalendarActivity.class);
+            Intent intent = new Intent(this, CalendarActivity.class);
             startActivity(intent);
         } catch (Exception e) {
             Log.e("MainActivity", "error al insertar usuario");

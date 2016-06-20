@@ -1,5 +1,6 @@
 package com.diev.aplicacion.diev;
 
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -92,7 +93,7 @@ public class CalendarAdapter extends ArrayAdapter<Date>{
         {
             // if it is today, set it to blue/bold
             holder.txt_day.setTypeface(null, Typeface.BOLD);
-            holder.txt_day.setTextColor(Color.RED);
+            holder.txt_day.setTextColor(Color.rgb(255, 87, 34));
         }
 
         // set text

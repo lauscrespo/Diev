@@ -1,15 +1,19 @@
 package com.diev.aplicacion.diev;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -17,6 +21,9 @@ import java.util.HashSet;
 import static com.diev.aplicacion.diev.R.layout.fragment_month_content;
 
 public class MonthContent extends Fragment {
+
+
+    private FloatingActionButton fab;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,7 +33,7 @@ public class MonthContent extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View view= inflater.inflate(fragment_month_content, null);
+        View view = inflater.inflate(fragment_month_content, null);
 
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(
@@ -39,8 +46,29 @@ public class MonthContent extends Fragment {
         HashSet<Date> events = new HashSet<>();
         events.add(new Date());
 
-        CalendarView cv = ((CalendarView)view.findViewById(R.id.calendar_view));
+        CalendarView cv = ((CalendarView) view.findViewById(R.id.calendar_view));
         cv.updateCalendar(events);
+
+        try{
+        fab = ((FloatingActionButton) view.findViewById(R.id.btn_new_event));
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Click", "Se presiono el boton");
+                switch (v.getId()) {
+                    case R.id.btn_new_event:
+                        //what to put here
+                        Toast.makeText(getContext(), "Add an Event", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(getContext(), CrearEvento.class);
+                        startActivity(intent);
+                        break;
+                }
+            }
+        });
+        }catch (Exception ex){
+            Log.e("Click", ex.toString());
+        }
 
         return recyclerView;
     }
