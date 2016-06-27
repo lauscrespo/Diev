@@ -91,9 +91,7 @@ public class MonthContent extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            // no-op
-        }
+        public void onBindViewHolder(ViewHolder holder, int position) { }
 
         @Override
         public int getItemCount() {
