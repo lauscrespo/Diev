@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/addevent"
+    android:weightSum="1"
+    android:padding="20dp">
+
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Titulo"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp"
+        android:layout_alignParentTop="true"
+        android:paddingTop="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtNombre"
+        android:textColor="@color/colorAccent"
+        android:ems="10"
+        android:padding="10dp"
+        android:background="@color/blanco"
+        android:layout_above="@+id/textView7"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtDescripcion"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Descripcion"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp"
+        android:paddingTop="20dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDescripcion"
+        android:textColor="@color/colorAccent"
+        android:ems="10"
+        android:padding="10dp"
+        android:background="@color/blanco"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hora Inicio"
+        android:id="@+id/textView8"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textColor="@color/colorPrimary"
+        android:paddingTop="20dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:id="@+id/linearLayout"
+        android:layout_above="@+id/linearLayout2"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_alignStart="@+id/linearLayout2">
+
+        <EditText
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/txtTime"
+            android:textColor="@color/colorAccent"
+           android:ems="10"
+           android:padding="20px"
+           android:layout_centerHorizontal="true"
+           android:background="@android:color/transparent"
+            android:textAlignment="center"
+            android:text="Hora Inicio"
+            android:editable="false"
+            android:enabled="false">
+
+            <requestFocus></requestFocus>
+        </EditText>
+
+        <ImageButton
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/btnTimePicker"
+            android:src="@drawable/ic_access_time_white_24dp"
+            android:background="@android:color/transparent" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hora Fin"
+        android:id="@+id/textView9"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:paddingTop="20dp"
+        android:textColor="@color/colorPrimary" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_above="@+id/btn_saveEvent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/linearLayout2">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtTime2"
+            android:textColor="@color/colorAccent"
+            android:ems="10"
+            android:padding="20px"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:textAlignment="center"
+            android:text="Hora Fin"
+            android:editable="false" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/btnTimePicker2"
+            android:src="@drawable/ic_access_time_white_24dp"
+            android:background="@android:color/transparent" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_saveEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorAccent"
+        android:text="Guardar"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="30dp" />
+
+
+</LinearLayout>

@@ -91,6 +91,9 @@ public class CalendarActivity extends AppCompatActivity {
                         if("CLIMA".equals(menuItem.getTitle().toString())){
                             iniciarWeather();
                         }
+                        if("BUSCAR EVENTO".equals(menuItem.getTitle().toString())){
+                            iniciarEvento();
+                        }
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
@@ -187,6 +190,11 @@ public class CalendarActivity extends AppCompatActivity {
 
     public void iniciarWeather(){
         Intent intent = new Intent(this, Weather.class);
+        startActivity(intent);
+    }
+
+    public void iniciarEvento(){
+        Intent intent = new Intent(this, CrearEvento.class);
         startActivity(intent);
     }
 }

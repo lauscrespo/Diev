@@ -25,16 +25,16 @@ public class Ropa {
     }
 
     public static Ropa[] ITEMS = {
-            new Ropa("Jaguar F-Type 2015", R.drawable.login),
-            new Ropa("Mercedes AMG-GT", R.drawable.login),
-            new Ropa("Mazda MX-5", R.drawable.login),
-            new Ropa("Porsche 911 GTS", R.drawable.login),
-            new Ropa("BMW Serie 6", R.drawable.login),
-            new Ropa("Ford Mondeo", R.drawable.login),
-            new Ropa("Volvo V60 Cross Country", R.drawable.login),
-            new Ropa("Jaguar XE", R.drawable.login),
-            new Ropa("VW Golf R Variant", R.drawable.login),
-            new Ropa("Seat León ST Cupra", R.drawable.login),
+            new Ropa("Clothes", R.drawable.login),
+            new Ropa("Clothes", R.drawable.login),
+            new Ropa("Clothes", R.drawable.login),
+            new Ropa("Clothes", R.drawable.login),
+            new Ropa("Clothes", R.drawable.login),
+            new Ropa("Clothes", R.drawable.login),
+            new Ropa("Clothes", R.drawable.login),
+            new Ropa("Clothes", R.drawable.login),
+            new Ropa("Clothes", R.drawable.login),
+            new Ropa("Clothes", R.drawable.login),
     };
 
     /**
