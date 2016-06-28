@@ -7,6 +7,11 @@
             android:id="@+id/item1"
             android:title="BUSCAR EVENTO" />
         <item
+            android:icon="@drawable/ic_cloud_white_24dp"
+            android:tint="@color/colorAccent"
+            android:id="@+id/item4"
+            android:title="CLIMA" />
+        <item
             android:icon="@drawable/ic_share_white_24dp"
             android:tint="@color/colorAccent"
             android:id="@+id/item2"

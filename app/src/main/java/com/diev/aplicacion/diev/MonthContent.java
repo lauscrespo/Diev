@@ -1,5 +1,6 @@
 package com.diev.aplicacion.diev;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,8 +14,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.diev.aplicacion.diev.adapter.eventoAdapter;
+import com.diev.aplicacion.diev.brl.EventoBrl;
+import com.diev.aplicacion.diev.model.Evento;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -22,12 +30,15 @@ import static com.diev.aplicacion.diev.R.layout.fragment_month_content;
 
 public class MonthContent extends Fragment {
 
-
+    private ListView ciudadList;
+    EventoBrl eventoBrl;
+    ImageView img;
     private FloatingActionButton fab;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -46,6 +57,7 @@ public class MonthContent extends Fragment {
         HashSet<Date> events = new HashSet<>();
         events.add(new Date());
 
+
         CalendarView cv = ((CalendarView) view.findViewById(R.id.calendar_view));
         cv.updateCalendar(events);
 
@@ -59,7 +71,6 @@ public class MonthContent extends Fragment {
                     case R.id.btn_new_event:
                         //what to put here
                         Toast.makeText(getContext(), "Add an Event", Toast.LENGTH_SHORT).show();
-
                         Intent intent = new Intent(getContext(), CrearEvento.class);
                         startActivity(intent);
                         break;
@@ -72,6 +83,7 @@ public class MonthContent extends Fragment {
 
         return recyclerView;
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -93,7 +105,6 @@ public class MonthContent extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            // no-op
         }
 
         @Override

@@ -113,10 +113,12 @@ public class CalendarView extends LinearLayout{
 
                 //Mostrar la fecha seleccionada
                 TextView txt_hide_date = (TextView)view.findViewById(R.id.txt_hide_date);
-                Toast.makeText(context, txt_hide_date.getText().toString(), Toast.LENGTH_SHORT).show();
-                CrearEvento.setFecha(txt_hide_date.getText().toString());
-                Intent intent = new Intent(getContext(), CrearEvento.class);
+                CrearEvento.setFecha(view.findViewById(R.id.txt_hide_date).toString());
+                //Intent intent = new Intent(getContext(), CrearEvento.class);
+                Intent intent = new Intent(getContext(), ViewEvent.class);
+
                 context.startActivity(intent);
+                Toast.makeText(context, txt_hide_date.getText().toString(), Toast.LENGTH_SHORT).show();
 
             }
         });

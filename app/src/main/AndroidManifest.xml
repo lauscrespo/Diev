@@ -42,10 +42,35 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize">
         </activity>
+        <activity
+            android:name=".Weather"
+            android:label="@string/weather_details"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.ActionBar.Transparent"></activity>
+        <activity
+            android:name=".ViewEvent"
+            android:label="@string/view_event"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".CalendarActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CalendarActivity" />
+        </activity>
+        <activity
+            android:name=".ViewSuggestion"
+            android:label="@string/view_suggestion"
+            android:configChanges="orientation|screenSize"></activity>
+        <activity
+            android:name=".SuggestionDetail"
+            android:label="@string/view_suggestion"
+            android:parentActivityName=".ViewSuggestion">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ViewSuggestion" />
+        </activity>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
     </application>
 
 </manifest>

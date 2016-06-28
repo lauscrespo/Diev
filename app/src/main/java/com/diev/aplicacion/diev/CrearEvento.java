@@ -25,7 +25,7 @@ public class CrearEvento extends Activity implements
         View.OnClickListener {
 
 
-
+    private static String fecha;
 
     EventoBrl objBrl;
     private int eventoId;
@@ -37,15 +37,6 @@ public class CrearEvento extends Activity implements
     EditText  txtTime2;
     private int mHour, mMinute;
     private int mHour2, mMinute2;
-    private static String fecha;
-
-    public static String getFecha() {
-        return fecha;
-    }
-
-    public static void setFecha(String fecha) {
-        CrearEvento.fecha = fecha;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +66,6 @@ public class CrearEvento extends Activity implements
 
     @Override
     public void onClick(View v) {
-
 
         if (v == btnTimePicker) {
 
@@ -115,11 +105,16 @@ public class CrearEvento extends Activity implements
     }
     ///evento que guarda el evento
     private void saveEvento() {
+        String fecha = getFecha();
         String nombre = txtNombre.getText().toString();
         String descripcion = txtDescripcion.getText().toString();
         String horaIni = txtTime.getText().toString();
         String horaFin = txtTime2.getText().toString();
-        String fecha= getFecha();
+
+        if (fecha.trim().isEmpty()) {
+            Toast.makeText(this, "Ingrese la FECHA", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (nombre.trim().isEmpty()) {
             Toast.makeText(this, "Ingrese el nombre", Toast.LENGTH_SHORT).show();
@@ -137,28 +132,31 @@ public class CrearEvento extends Activity implements
             Toast.makeText(this, "Ingrese la hora final", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (fecha.trim().isEmpty()) {
-            Toast.makeText(this, "Fecha vacia", Toast.LENGTH_SHORT).show();
-            return;
-        }
         String result = nombre.replace(" ", "");
         Evento evento = new Evento();
 
         //llenar datos evento
+        evento.setFecha(fecha);
         evento.setEventoId(0);
         evento.setNombre(nombre);
         evento.setDescripcion(descripcion);
         evento.setHora_ini(horaIni);
         evento.setHora_fin(horaFin);
-        evento.setFecha(fecha);
 
         try {
             objBrl.insert(evento);
             Toast.makeText(this, "Evento Registrado", Toast.LENGTH_SHORT).show();
-            Intent intent= new Intent(this, CalendarActivity.class);
-            startActivity(intent);
+
         } catch (Exception e) {
             Log.e("MainActivity", "error al insertar evento");
         }
+    }
+
+    public static String getFecha() {
+        return fecha;
+    }
+
+    public static void setFecha(String fecha) {
+        CrearEvento.fecha = fecha;
     }
 }
