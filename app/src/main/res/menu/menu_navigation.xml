@@ -2,24 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:icon="@drawable/ic_search_white_24dp"
+            android:id="@+id/item5"
+            android:icon="@drawable/ic_grid_on_white_24dp"
             android:tint="@color/colorAccent"
-            android:id="@+id/item1"
-            android:title="BUSCAR EVENTO" />
+            android:title="MES" />
         <item
+            android:id="@+id/item6"
+            android:icon="@drawable/ic_view_week_white_24dp"
+            android:tint="@color/colorAccent"
+            android:title="SEMANA" />
+        <item
+            android:id="@+id/item7"
+            android:icon="@drawable/ic_view_carousel_white_24dp"
+            android:tint="@color/colorAccent"
+            android:title="DIA" />
+        <item
+            android:id="@+id/item4"
             android:icon="@drawable/ic_cloud_white_24dp"
             android:tint="@color/colorAccent"
-            android:id="@+id/item4"
-            android:title="CLIMA"  />
+            android:title="CLIMA" />
         <item
+            android:id="@+id/item2"
             android:icon="@drawable/ic_share_white_24dp"
             android:tint="@color/colorAccent"
-            android:id="@+id/item2"
             android:title="COMPARTIR APP" />
         <item
+            android:id="@+id/item3"
             android:icon="@drawable/ic_settings_white_24dp"
             android:tint="@color/colorAccent"
-            android:id="@+id/item3"
             android:title="CONFIGURACION" />
     </group>
 </menu>

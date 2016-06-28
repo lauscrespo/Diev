@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/addevent"
+    android:background="@drawable/login"
     android:weightSum="1"
     android:padding="20dp">
 
@@ -15,7 +15,7 @@
         android:layout_alignParentStart="true"
         android:text="Titulo"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/blanco"
         android:textSize="25dp"
         android:layout_alignParentTop="true"
         android:paddingTop="20dp"
@@ -41,7 +41,7 @@
         android:layout_alignParentStart="true"
         android:text="Descripcion"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/blanco"
         android:textSize="25dp"
         android:paddingTop="20dp"
         android:textStyle="bold" />
@@ -66,7 +66,7 @@
         android:id="@+id/textView8"
         android:textStyle="bold"
         android:textSize="25dp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/blanco"
         android:paddingTop="20dp" />
 
     <LinearLayout
@@ -112,7 +112,7 @@
         android:textStyle="bold"
         android:textSize="25dp"
         android:paddingTop="20dp"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/blanco" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -121,7 +121,6 @@
         android:layout_above="@+id/btn_saveEvent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="50dp"
         android:id="@+id/linearLayout2">
 
         <EditText
@@ -157,8 +156,7 @@
         android:text="Guardar"
         android:textStyle="bold"
         android:textSize="25dp"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="30dp" />
+        android:textColor="@android:color/white" />
 
 
 </LinearLayout>

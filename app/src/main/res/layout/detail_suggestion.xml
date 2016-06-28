@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/switch_thumb_normal_material_dark">
 
     <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/imagen_extendida"

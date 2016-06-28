@@ -20,10 +20,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 
-/**
- * Created by USUARIO on 11/06/2016.
- */
-
 public class CalendarView extends LinearLayout{
 
     // internal components
@@ -61,9 +57,6 @@ public class CalendarView extends LinearLayout{
         this.context = context;
     }
 
-    /**
-     * Load control xml layout
-     */
     private void initControl(Context context, AttributeSet attrs)
     {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -114,10 +107,6 @@ public class CalendarView extends LinearLayout{
                 //Mostrar la fecha seleccionada
                 TextView txt_hide_date = (TextView)view.findViewById(R.id.txt_hide_date);
                 CrearEvento.setFecha(view.findViewById(R.id.txt_hide_date).toString());
-                //Intent intent = new Intent(getContext(), CrearEvento.class);
-                Intent intent= new Intent(getContext(), ViewEvent.class);
-
-                context.startActivity(intent);
                 Toast.makeText(context, txt_hide_date.getText().toString(), Toast.LENGTH_SHORT).show();
 
             }

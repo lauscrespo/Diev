@@ -35,43 +35,24 @@
                 android:orientation="vertical"
                 android:paddingTop="50dp">
 
-                <LinearLayout
-                    android:id="@+id/viewCalendar"
-                    android:layout_width="match_parent"
-                    android:layout_height="280dp"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-
-                    <com.diev.aplicacion.diev.CalendarView
-                        xmlns:calendarNS="http://schemas.android.com/apk/res/com.diev.aplicacion.diev"
-                        android:id="@+id/calendar_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        calendarNS:dateFormat="MMMM yyyy" />
-                </LinearLayout>
-
-                <LinearLayout
+                <com.alamkanak.weekview.WeekView
+                    android:id="@+id/weekView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/border"
-                    android:baselineAligned="false"
-                    android:orientation="vertical"
-                    android:weightSum="1">
-
-                </LinearLayout>
+                    app:eventTextColor="@android:color/white"
+                    app:textSize="12sp"
+                    app:hourHeight="60dp"
+                    app:headerColumnPadding="8dp"
+                    app:headerColumnTextColor="#8f000000"
+                    app:headerRowPadding="12dp"
+                    app:columnGap="8dp"
+                    app:noOfVisibleDays="3"
+                    app:headerRowBackgroundColor="#ffefefef"
+                    app:dayBackgroundColor="#05000000"
+                    app:todayBackgroundColor="#1848adff"
+                    app:headerColumnBackground="#ffffffff"/>
             </LinearLayout>
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/btn_new_event"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:clickable="true"
-                android:orientation="vertical"
-                android:src="@drawable/ic_event_white_24dp"
-                app:layout_anchor="@id/viewCalendar"
-                app:layout_anchorGravity="bottom|right|end"></android.support.design.widget.FloatingActionButton>
         </android.support.design.widget.CoordinatorLayout>
     </android.support.design.widget.CoordinatorLayout>
 

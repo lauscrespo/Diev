@@ -42,7 +42,20 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:configChanges="orientation|screenSize">
         </activity>
-        <activity android:name=".Weather" android:label="@string/weather_details"
+        <activity
+            android:name=".WeekContent"
+            android:label="@string/calendar_view"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity
+            android:name=".DayContent"
+            android:label="@string/calendar_view"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize">
+        </activity>
+        <activity android:name=".Weather"
+            android:label="@string/weather_details"
             android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.ActionBar.Transparent">
         </activity>
@@ -55,13 +68,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CalendarActivity" />
         </activity>
-        <activity android:name=".ViewSuggestion" android:label="@string/view_suggestion"
-            android:configChanges="orientation|screenSize">
+        <activity android:name=".ViewSuggestion"
+            android:label="@string/view_suggestion"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.ActionBar.Transparent">
         </activity>
         <activity
             android:name=".SuggestionDetail"
-            android:label="@string/view_suggestion"
-            android:parentActivityName=".ViewSuggestion">
+            android:label="@string/view_suggestion_details"
+            android:parentActivityName=".ViewSuggestion"
+            android:theme="@style/AppTheme.ActionBar.Transparent">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ViewSuggestion" />
