@@ -168,7 +168,8 @@ public class DayContent extends AppCompatActivity  implements MonthLoader.MonthC
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-
+        Intent intent = new Intent(this, ViewEvent.class);
+        startActivity(intent);
     }
 
     @Override

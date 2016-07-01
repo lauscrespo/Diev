@@ -1,10 +1,8 @@
 package com.diev.aplicacion.diev;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -44,10 +42,13 @@ public class CalendarView extends LinearLayout{
     private String dateFormat;
     private Context context;
 
+
     public CalendarView(Context context) {
 
         super(context);
         this.context = context;
+
+
     }
 
     public CalendarView(Context context, AttributeSet attrs)
@@ -57,6 +58,9 @@ public class CalendarView extends LinearLayout{
         this.context = context;
     }
 
+    /**
+     * Load control xml layout
+     */
     private void initControl(Context context, AttributeSet attrs)
     {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -67,6 +71,8 @@ public class CalendarView extends LinearLayout{
         assignClickHandlers();
 
         updateCalendar();
+
+
     }
 
     private void assignClickHandlers()
@@ -106,8 +112,9 @@ public class CalendarView extends LinearLayout{
 
                 //Mostrar la fecha seleccionada
                 TextView txt_hide_date = (TextView)view.findViewById(R.id.txt_hide_date);
-                CrearEvento.setFecha(view.findViewById(R.id.txt_hide_date).toString());
+                CrearEvento.setFecha(txt_hide_date.getText().toString());
                 Toast.makeText(context, txt_hide_date.getText().toString(), Toast.LENGTH_SHORT).show();
+
 
             }
         });

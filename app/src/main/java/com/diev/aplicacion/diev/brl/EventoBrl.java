@@ -26,7 +26,7 @@ public class EventoBrl {
 
     public EventoBrl(Context contexto) {
         this.contexto = contexto;
-        this.columns = "eventoId,usuario,descripcion,hora_ini, hora_fin, fecha".split(",");
+        this.columns = "eventoId,nombre,descripcion,hora_ini, hora_fin, fecha".split(",");
     }
 
     public int insert(Evento obj) throws Exception {
@@ -141,6 +141,28 @@ public class EventoBrl {
             if (cursor != null)
                 cursor.close();
 
+            connection.close();
+        }
+        return obj;
+    }
+
+    public Evento selectByFecha(String  fecha) throws Exception {
+        DbConnection2 connection = new DbConnection2(contexto);
+        connection.open();
+
+        Cursor cursor = null;
+        Evento obj = null;
+        try {
+            cursor = connection.executeQuery(Table2.tbl_Evento, columns,
+                    "fecha = ? ", new String[]{fecha});
+
+            if (cursor.moveToFirst()) {
+                obj = getEventoFromCursor(cursor);
+
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
             connection.close();
         }
         return obj;

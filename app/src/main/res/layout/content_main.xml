@@ -1,142 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/login"
-    android:weightSum="1"
-    android:padding="15dp">
-    <LinearLayout
-        android:orientation="vertical"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="50dp"
-        android:paddingTop="20dp"
-        android:paddingRight="50dp">
+        android:layout_height="match_parent">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre y Apellido:"
-            android:id="@+id/textView"
-            android:textSize="25dp"
-            android:textColor="@color/blanco"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/txt_Nombre"
-            android:layout_alignEnd="@+id/txt_Nombre"
-            android:paddingTop="20dp" />
+            android:orientation="vertical"
+            android:padding="25dp">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/txt_Nombre"
-            android:textColor="@color/colorAccent"
-            android:ems="10"
-            android:layout_below="@+id/textView"
-            android:layout_centerHorizontal="true"
-            android:background="@color/blanco" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/txt_Nombre"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/txt_Nombre"
+                android:paddingTop="15dp"
+                android:text="Nombre y Apellido:"
+                android:textColor="@color/blanco"
+                android:textSize="25dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sexo:"
-            android:id="@+id/textView3"
-            android:textSize="25dp"
-            android:textColor="@color/blanco"
-            android:layout_below="@+id/txt_Nombre"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:paddingTop="20dp" />
+            <EditText
+                android:id="@+id/txt_Nombre"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/textView"
+                android:layout_centerHorizontal="true"
+                android:background="@color/blanco"
+                android:ems="10"
+                android:textColor="@color/colorAccent"
+                android:singleLine="true" />
 
-        <RadioGroup
-            android:id="@+id/rdgGrupo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_column="0"
-            android:layout_span="2"
-            android:layout_below="@+id/textView3">
-            <RadioButton
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/txt_Nombre"
+                android:paddingTop="20dp"
+                android:text="Sexo:"
+                android:textColor="@color/blanco"
+                android:textSize="25dp" />
+
+            <RadioGroup
+                android:id="@+id/rdgGrupo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hombre"
-                android:id="@+id/radioButtonHombre"
-                android:checked="false"
-                android:textColor="@color/blanco"
-                android:textSize="23dp"
-                android:paddingRight="30dp" />
+                android:layout_below="@+id/textView3"
+                android:layout_column="0"
+                android:layout_span="2"
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:layout_width="wrap_content"
+                <RadioButton
+                    android:id="@+id/radioButtonHombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:paddingRight="30dp"
+                    android:text="Hombre"
+                    android:textColor="@color/blanco"
+                    android:textSize="23dp" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonMujer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="Mujer"
+                    android:textColor="@color/blanco"
+                    android:textSize="23dp" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mujer"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/rdgGrupo"
+                android:paddingTop="20dp"
+                android:text="Edad:"
                 android:textColor="@color/blanco"
-                android:id="@+id/radioButtonMujer"
-                android:checked="false"
-                android:textSize="23dp" />
-        </RadioGroup>
+                android:textSize="25dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Edad:"
-            android:id="@+id/textView4"
-            android:textSize="25dp"
-            android:textColor="@color/blanco"
-            android:layout_below="@+id/rdgGrupo"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:paddingTop="20dp" />
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView4"
+                android:background="@color/blanco"
+                android:drawSelectorOnTop="true" />
 
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner"
-            android:drawSelectorOnTop="true"
-            android:layout_below="@+id/textView4"
-            android:background="@color/blanco"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/spinner"
+                android:paddingTop="20dp"
+                android:text="Email:"
+                android:textColor="@color/blanco"
+                android:textSize="25dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Email:"
-            android:id="@+id/textView5"
-            android:textSize="25dp"
-            android:textColor="@color/blanco"
-            android:layout_below="@+id/spinner"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:paddingTop="20dp" />
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView5"
+                android:background="@color/blanco"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorAccent"
+                android:singleLine="true" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:inputType="textEmailAddress"
-            android:ems="10"
-            android:textColor="@color/colorAccent"
-            android:id="@+id/txtEmail"
-            android:layout_below="@+id/textView5"
-            android:layout_alignParentLeft="true"
-            android:background="@color/blanco" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/colorAccent"
+                android:text="Guardar"
+                android:textColor="@color/blanco"
+                android:textSize="25dp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Guardar"
-        android:id="@+id/btn_save"
-        android:background="@color/colorAccent"
-        android:textColor="@color/blanco"
-        android:textSize="25dp"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        </LinearLayout>
+    </ScrollView>
 
 
 </RelativeLayout>

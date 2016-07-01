@@ -6,6 +6,7 @@ import android.database.Cursor;
 
 import com.diev.aplicacion.diev.connection.DbConnection;
 import com.diev.aplicacion.diev.connection.Table;
+import com.diev.aplicacion.diev.imagenes.Ropa;
 import com.diev.aplicacion.diev.model.Usuario;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class UsuarioBrl {
         this.contexto = contexto;
         this.columns = "usuarioId,nombre,sexo,edad, email".split(",");
     }
+
 
     public int insert(Usuario obj) throws Exception {
         if (obj == null)

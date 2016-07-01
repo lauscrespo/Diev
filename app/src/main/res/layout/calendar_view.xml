@@ -51,15 +51,22 @@
                         calendarNS:dateFormat="MMMM yyyy" />
                 </LinearLayout>
 
-                <LinearLayout
+
+                <ListView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/border"
                     android:baselineAligned="false"
                     android:orientation="vertical"
-                    android:weightSum="1">
+                    android:weightSum="1"
 
-                </LinearLayout>
+                    android:id="@+id/listView"
+                    android:layout_alignParentStart="true"
+
+                    android:divider="@color/white"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp" />
+
             </LinearLayout>
 
             <android.support.design.widget.FloatingActionButton

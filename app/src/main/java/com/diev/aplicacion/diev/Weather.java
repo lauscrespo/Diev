@@ -10,12 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.diev.aplicacion.diev.httpclient.HttpConnection;
 import com.diev.aplicacion.diev.httpclient.MethodType;
 import com.diev.aplicacion.diev.httpclient.StandarRequestConfiguration;
+import com.diev.aplicacion.diev.imagenes.Ropa;
 import com.diev.aplicacion.diev.listener.GenericListener;
 import com.diev.aplicacion.diev.listener.GeoLocationListener;
 import com.diev.aplicacion.diev.object.City;
@@ -42,10 +43,18 @@ public class Weather extends AppCompatActivity {
     private Location currentLocation;
     private AsyncTask<RequestConfiguration, String, String> task;
 
-    private LinearLayout geoDetailsContainer;
+    private RelativeLayout geoDetailsContainer;
     private ProgressDialog progressDialog;
 
+    private static String temRopa = "0";
 
+    public static String getTemRopa() {
+        return temRopa;
+    }
+
+    public static void setTemRopa(String temRopa) {
+        Weather.temRopa = temRopa;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +63,7 @@ public class Weather extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        geoDetailsContainer = (LinearLayout) findViewById(
+        geoDetailsContainer = (RelativeLayout) findViewById(
                 R.id.geo_container);
         geoDetailsContainer.setVisibility(View.GONE);
 
@@ -70,8 +79,6 @@ public class Weather extends AppCompatActivity {
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
         progressDialog.setTitle("Loading");
-
-
 
 
         task = new AsyncTask<RequestConfiguration, String, String>() {
@@ -124,6 +131,7 @@ public class Weather extends AppCompatActivity {
 
                     Weather.this.city.setText(city);
                     tempAct.setText(temp + "ºC");
+                    setTemRopa(temp.trim());
                     Weather.this.country.setText(country);
 
                     geoDetailsContainer.setVisibility(View.VISIBLE);
@@ -148,7 +156,7 @@ public class Weather extends AppCompatActivity {
             @Override
             public void action(Location objLocation) {
                 currentLocation = objLocation;
-                latitud =  objLocation.getLatitude();
+                latitud = objLocation.getLatitude();
                 longitud = objLocation.getLongitude();
                 locationListener.stop();
                 locationListener = null;
@@ -166,7 +174,7 @@ public class Weather extends AppCompatActivity {
                         new StandarRequestConfiguration(url,
                                 MethodType.GET, params);
 
-                task.execute(new RequestConfiguration[]{configuration});
+                task.execute(configuration);
             }
         };
         this.locationListener = new GeoLocationListener(this, onLocationReady);
@@ -175,28 +183,28 @@ public class Weather extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(locationListener != null)
+        if (locationListener != null)
             locationListener.resume();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(locationListener != null)
+        if (locationListener != null)
             locationListener.start();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if(locationListener != null)
+        if (locationListener != null)
             locationListener.stop();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(locationListener != null)
+        if (locationListener != null)
             locationListener.pause();
     }
 
