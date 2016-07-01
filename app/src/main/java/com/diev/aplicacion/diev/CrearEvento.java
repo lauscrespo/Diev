@@ -1,23 +1,19 @@
 package com.diev.aplicacion.diev;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-
 import com.diev.aplicacion.diev.brl.EventoBrl;
 import com.diev.aplicacion.diev.model.Evento;
-import com.diev.aplicacion.diev.model.Usuario;
 
 import java.util.Calendar;
 
@@ -25,16 +21,16 @@ public class CrearEvento extends Activity implements
         View.OnClickListener {
 
 
-    private static String fecha;
+    static String fecha = "";
 
     EventoBrl objBrl;
     private int eventoId;
     private EditText txtNombre;
     private EditText txtDescripcion;
     ImageButton btnTimePicker;
-    EditText  txtTime;
-    ImageButton  btnTimePicker2;
-    EditText  txtTime2;
+    EditText txtTime;
+    ImageButton btnTimePicker2;
+    EditText txtTime2;
     private int mHour, mMinute;
     private int mHour2, mMinute2;
 
@@ -42,7 +38,7 @@ public class CrearEvento extends Activity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
-        objBrl = new EventoBrl(CrearEvento.this);
+        objBrl = new EventoBrl(SplashActivity.getInstance());
 
         btnTimePicker = (ImageButton) findViewById(R.id.btnTimePicker);
         txtTime = (EditText) findViewById(R.id.txtTime);
@@ -103,6 +99,7 @@ public class CrearEvento extends Activity implements
             tpd.show();
         }
     }
+
     ///evento que guarda el evento
     private void saveEvento() {
         String fecha = getFecha();
@@ -111,7 +108,7 @@ public class CrearEvento extends Activity implements
         String horaIni = txtTime.getText().toString();
         String horaFin = txtTime2.getText().toString();
 
-        if (fecha.trim().isEmpty()) {
+        if (fecha.trim().equals(null) || fecha.trim().equals("")) {
             Toast.makeText(this, "Ingrese la FECHA", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -134,7 +131,6 @@ public class CrearEvento extends Activity implements
         }
         String result = nombre.replace(" ", "");
         Evento evento = new Evento();
-
         //llenar datos evento
         evento.setFecha(fecha);
         evento.setEventoId(0);
@@ -146,9 +142,11 @@ public class CrearEvento extends Activity implements
         try {
             objBrl.insert(evento);
             Toast.makeText(this, "Evento Registrado", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, CalendarActivity.class);
+            this.startActivity(intent);
 
         } catch (Exception e) {
-            Log.e("MainActivity", "error al insertar evento");
+            Log.e("Crear Evnto", "error al insertar evento " + e.getMessage());
         }
     }
 

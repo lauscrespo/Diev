@@ -26,7 +26,7 @@ public class EventoBrl {
 
     public EventoBrl(Context contexto) {
         this.contexto = contexto;
-        this.columns = "eventoId,usuario,descripcion,hora_ini, hora_fin, fecha".split(",");
+        this.columns = "eventoId,nombre,descripcion,hora_ini, hora_fin, fecha".split(",");
     }
 
     public int insert(Evento obj) throws Exception {

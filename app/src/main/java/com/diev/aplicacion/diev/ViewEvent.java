@@ -8,14 +8,28 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.diev.aplicacion.diev.adapter.eventoAdapter;
+import com.diev.aplicacion.diev.brl.EventoBrl;
 import com.diev.aplicacion.diev.imagenes.Ropa;
+import com.diev.aplicacion.diev.model.Evento;
+
+import java.util.ArrayList;
 
 public class ViewEvent extends AppCompatActivity implements View.OnClickListener {
-
-
+static int id=0;
+    private TextView txtNombre;
+    private TextView txtDescrip;
+    private TextView txtini;
+    private TextView txtfin;
+    private TextView txtfecha;
+    EventoBrl eventoBrl;
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_event);
@@ -29,6 +43,32 @@ public class ViewEvent extends AppCompatActivity implements View.OnClickListener
 
         FloatingActionButton btnGeoLo = (FloatingActionButton) findViewById(R.id.view_sugestion);
         btnGeoLo.setOnClickListener(this);
+        txtNombre = (TextView) findViewById(R.id.nombreEvento);
+        txtDescrip = (TextView) findViewById(R.id.descripcionEvento);
+        txtini = (TextView) findViewById(R.id.horaInicioEvento);
+        txtfin = (TextView) findViewById(R.id.horaFinEvento);
+        txtfecha = (TextView) findViewById(R.id.fechaEvento);
+        if (id!=0){
+           // loadEvento();
+        }
+
+    }
+    private void loadEvento(){
+        Evento evento = new Evento();
+        eventoBrl = new EventoBrl(this);
+        try {
+            evento=eventoBrl.selectById(id);
+            txtNombre.setText(evento.getNombre());
+            txtDescrip.setText(evento.getDescripcion());
+            txtini.setText(evento.getHora_ini());
+            txtfin.setText(evento.getHora_fin());
+            txtfecha.setText(evento.getFecha());
+            Log.d("CalendarView", "BD EVento By ID" + evento.getNombre());
+        } catch (Exception e) {
+            Log.d(e.getMessage(),"Error de Base Evento al cargar");
+            e.printStackTrace();
+        }
+        Log.d("CalendarView","BD EVento by ID"+evento.getNombre());
 
     }
 

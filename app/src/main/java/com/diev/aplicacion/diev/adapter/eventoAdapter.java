@@ -75,55 +75,12 @@ public class eventoAdapter extends BaseAdapter {
 
         ViewHolder(View view) {
             nombre = (TextView) view.findViewById(R.id.txt_eNombre);
-            descripcion = (TextView) view.findViewById(R.id.txtDescripcion);
+            descripcion = (TextView) view.findViewById(R.id.txt_eDescrip);
             imagen = (ImageView) view.findViewById(R.id.iv_clock);
         }
 
 
     }
 
-    //descargar imagen
-    private Bitmap DownloadImage(String imageHttpAddress) {
-        URL imageUrl = null;
-        Bitmap imagen = null;
-        try {
-            imageUrl = new URL(imageHttpAddress);
-            HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
-            conn.connect();
-            imagen = BitmapFactory.decodeStream(conn.getInputStream());
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return imagen;
-    }
 
-    //metodo asincrono que descarga la imagen
-    class DownloadFileFromURL extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected void onPreExecute() {
-            // TODO Auto-generated method stub
-            super.onPreExecute();
-
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... params) {
-            // TODO Auto-generated method stub
-            Log.i("doInBackground ", "Entra en doInBackground");
-            String url = params[0];
-            Bitmap imagen = DownloadImage(url);
-            img = imagen;
-            return imagen;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            // TODO Auto-generated method stub
-            super.onPostExecute(result);
-
-            img = result;
-        }
-
-    }
 }

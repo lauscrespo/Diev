@@ -29,7 +29,8 @@ public class SplashActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // deleteDatabase("/data/data/com.diev.aplicacion.diev/databases/usuario.db");
+        //deleteDatabase("/data/data/com.diev.aplicacion.diev/databases/usuario.db");
+        //deleteDatabase("/data/data/com.diev.aplicacion.diev/databases/evento.db");
         // Tenemos una plantilla llamada splash.xml donde mostraremos la información que queramos (logotipo, etc.)
         setContentView(R.layout.splash);
 

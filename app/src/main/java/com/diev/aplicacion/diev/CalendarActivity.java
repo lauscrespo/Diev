@@ -1,75 +1,73 @@
 package com.diev.aplicacion.diev;
 
-import android.app.ProgressDialog;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.diev.aplicacion.diev.httpclient.HttpConnection;
-import com.diev.aplicacion.diev.httpclient.MethodType;
-import com.diev.aplicacion.diev.httpclient.RequestConfiguration;
-import com.diev.aplicacion.diev.httpclient.StandarRequestConfiguration;
-import com.diev.aplicacion.diev.listener.GenericListener;
-import com.diev.aplicacion.diev.listener.GeoLocationListener;
-import com.diev.aplicacion.diev.object.City;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.alamkanak.weekview.WeekView;
+import com.alamkanak.weekview.WeekViewEvent;
+import com.diev.aplicacion.diev.adapter.eventoAdapter;
+import com.diev.aplicacion.diev.brl.EventoBrl;
+import com.diev.aplicacion.diev.model.Evento;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import static com.diev.aplicacion.diev.R.menu.update;
 
-public class CalendarActivity extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity implements  View.OnClickListener {
 
 
     private DrawerLayout mDrawerLayout;
+    private FloatingActionButton fab;
+    private ListView ciudadList;
+    EventoBrl eventoBrl;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_view);
+        ArrayList<Evento> eventos = new ArrayList<>();
+        eventoBrl = new EventoBrl(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_calendar);
         setSupportActionBar(toolbar);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
-
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+
+        HashSet<Date> events = new HashSet<>();
+        events.add(new Date());
+
+        CalendarView cv = ((CalendarView) findViewById(R.id.calendar_view));
+        cv.updateCalendar(events);
+
+        fab = ((FloatingActionButton) findViewById(R.id.btn_new_event));
+        fab.setOnClickListener(this);
+
+
 
         // Adding menu icon to Toolbar
         ActionBar supportActionBar = getSupportActionBar();
@@ -85,35 +83,52 @@ public class CalendarActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         // Set item in checked state
                         menuItem.setChecked(true);
-                        if ("COMPARTIR APP".equals(menuItem.getTitle().toString())){
+                        if ("COMPARTIR APP".equals(menuItem.getTitle().toString())) {
                             shareSocialNetwork();
                         }
                         if ("CLIMA".equals(menuItem.getTitle().toString())) {
                             iniciarWeather();
                         }
-                        if ("BUSCAR EVENTO".equals(menuItem.getTitle().toString())) {
-                            iniciarEvento();
+                        if ("SEMANA".equals(menuItem.getTitle().toString())) {
+                            iniciarSemana();
+                        }
+                        if ("DIA".equals(menuItem.getTitle().toString())) {
+                            iniciarDia();
                         }
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
                 });
+
+        loadEvento();
+        registerForContextMenu(ciudadList);
+
     }
 
+    private void loadEvento(){
+        ArrayList<Evento> eventos = new ArrayList<>();
+        eventoBrl = new EventoBrl(this);
+        try {
+            eventos=eventoBrl.selectAll();
+            Log.d("CalendarView","BD EVento "+eventos.size());
+        } catch (Exception e) {
+            Log.d(e.getMessage(),"Error de Base Evento al cargar");
+            e.printStackTrace();
+        }
+        Log.d("CalendarView","BD EVento "+eventos.size());
+        ciudadList = (ListView) findViewById(R.id.listView);
+        ciudadList.setAdapter(new eventoAdapter(eventos, this));
+    }
     @Override
     protected void onResume() {
         super.onResume();
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
+    public void onStart() { super.onStart(); }
 
     @Override
-    public void onStop() {
-        super.onStop();
-    }
+    public void onStop() { super.onStop(); }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,6 +140,39 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+    //mantener pulsado para eliminar
+    public void onCreateContextMenu(ContextMenu menu, View view,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, view, menuInfo);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu_evento, menu);
+
+    }
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
+                .getMenuInfo();
+
+        if (info == null || info.position < 0)
+            return true;
+
+        int itemPosition = info.position;
+
+        switch (item.getItemId()) {
+            case R.id.action_delete_evento:
+                Evento objEvento = (Evento) ciudadList.getAdapter().getItem(itemPosition);
+                deleteContact(objEvento);
+
+        }
+        switch (item.getItemId()) {
+            case R.id.action_detalle_evento:
+                ViewEvent.id=item.getItemId();
+                Intent intent = new Intent(this, ViewEvent.class);
+                startActivity(intent);
+
+        }
+        return true;
     }
 
     @Override
@@ -144,46 +192,6 @@ public class CalendarActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new MonthContent(), "MONTH");
-        adapter.addFragment(new WeekContent(), "WEEK");
-        adapter.addFragment(new DayContent(), "DAY");
-        viewPager.setAdapter(adapter);
-    }
-
-
-    static class Adapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public Adapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-    }
-
-
     public void shareSocialNetwork() {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.putExtra(Intent.EXTRA_SUBJECT, "Diev");
@@ -192,14 +200,60 @@ public class CalendarActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(share, "Compartir usando..."));
     }
 
-    public void iniciarWeather() {
+    public void iniciarWeather(){
         Intent intent = new Intent(this, Weather.class);
         startActivity(intent);
     }
-
-    public void iniciarEvento() {
-        Intent intent = new Intent(this, CrearEvento.class);
+    public void iniciarSemana(){
+        Intent intent = new Intent(this, WeekContent.class);
         startActivity(intent);
+    }
+
+    public void iniciarDia(){
+        Intent intent = new Intent(this, DayContent.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.btn_new_event){
+            if(CrearEvento.fecha.equals("")){
+                Toast.makeText(this, "Seleccione la fecha", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Intent intent = new Intent(this, CrearEvento.class);
+                startActivity(intent);
+            }
+
+        }
+    }
+
+
+
+    private void deleteContact(final Evento objEvento){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+        dialog.setTitle("Confirmación");
+        dialog.setMessage("¿Está seguro que desea eliminar el Ciudad seleccionada?");
+        dialog.setCancelable(false);
+
+        dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int boton) {
+                try {
+                    eventoBrl.delete(objEvento.getEventoId());
+                } catch (Exception e) {
+                    Toast.makeText(SplashActivity.getInstance(), "Error al eliminar el evento", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Toast.makeText(SplashActivity.getInstance(), "Evento eliminado", Toast.LENGTH_SHORT).show();
+                loadEvento();
+            }
+        });
+
+        dialog.setNegativeButton("No", null);
+
+        dialog.show();
     }
 }
 

@@ -10,9 +10,14 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.widget.Toast;
+
+import com.diev.aplicacion.diev.adapter.eventoAdapter;
+import com.diev.aplicacion.diev.brl.EventoBrl;
+import com.diev.aplicacion.diev.model.Evento;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,10 +53,13 @@ public class CalendarView extends LinearLayout{
     private String dateFormat;
     private Context context;
 
+
     public CalendarView(Context context) {
 
         super(context);
         this.context = context;
+
+
     }
 
     public CalendarView(Context context, AttributeSet attrs)
@@ -74,6 +82,8 @@ public class CalendarView extends LinearLayout{
         assignClickHandlers();
 
         updateCalendar();
+
+
     }
 
     private void assignClickHandlers()
@@ -113,11 +123,10 @@ public class CalendarView extends LinearLayout{
 
                 //Mostrar la fecha seleccionada
                 TextView txt_hide_date = (TextView)view.findViewById(R.id.txt_hide_date);
-                CrearEvento.setFecha(view.findViewById(R.id.txt_hide_date).toString());
-                //Intent intent = new Intent(getContext(), CrearEvento.class);
-                Intent intent = new Intent(getContext(), ViewEvent.class);
-
-                context.startActivity(intent);
+                CrearEvento.setFecha(txt_hide_date.getText().toString());
+                //esto es para ver detlllate de evento
+                //Intent intent = new Intent(getContext(), ViewEvent.class);
+               // context.startActivity(intent);
                 Toast.makeText(context, txt_hide_date.getText().toString(), Toast.LENGTH_SHORT).show();
 
             }

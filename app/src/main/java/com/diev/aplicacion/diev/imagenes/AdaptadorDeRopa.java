@@ -79,8 +79,7 @@ public class AdaptadorDeRopa extends BaseAdapter {
                 nombre_img = "hombre_40_" + estacion.trim() + "_";
             }
         }
-        Toast.makeText(SplashActivity.getInstance(), "sexo edad " + nombre_img + " *temp " + tempera, Toast.LENGTH_SHORT).show();
-        Log.e("Ropa", "nombre imagen " + nombre_img);
+       Log.e("Ropa", "nombre imagen " + nombre_img);
         //*****Fin***/////
 
         if (nombre_img.equals("hombre_20_invierno_")) cantImagenes = 2;
