@@ -10,8 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.view.LayoutInflater;
-import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,11 +42,8 @@ public class CalendarView extends LinearLayout{
 
 
     public CalendarView(Context context) {
-
         super(context);
         this.context = context;
-
-
     }
 
     public CalendarView(Context context, AttributeSet attrs)
@@ -71,8 +66,6 @@ public class CalendarView extends LinearLayout{
         assignClickHandlers();
 
         updateCalendar();
-
-
     }
 
     private void assignClickHandlers()
@@ -106,16 +99,11 @@ public class CalendarView extends LinearLayout{
                 if(previewSelectedView != null){
                     previewSelectedView.setSelected(false);
                 }
-
                 view.setSelected(true);
                 previewSelectedView = view;
-
                 //Mostrar la fecha seleccionada
                 TextView txt_hide_date = (TextView)view.findViewById(R.id.txt_hide_date);
                 CrearEvento.setFecha(txt_hide_date.getText().toString());
-                Toast.makeText(context, txt_hide_date.getText().toString(), Toast.LENGTH_SHORT).show();
-
-
             }
         });
     }
@@ -131,7 +119,6 @@ public class CalendarView extends LinearLayout{
     private void loadDateFormat(AttributeSet attrs)
     {
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.CalendarView);
-
         try
         {
             // try to load provided date format, and fallback to default otherwise

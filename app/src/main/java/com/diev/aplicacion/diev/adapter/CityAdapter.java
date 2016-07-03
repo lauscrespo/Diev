@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.diev.aplicacion.diev.R;
-import com.diev.aplicacion.diev.object.City;
+import com.diev.aplicacion.diev.model.City;
 
 import java.util.List;
 

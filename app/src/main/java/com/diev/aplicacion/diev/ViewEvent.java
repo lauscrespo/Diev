@@ -57,12 +57,13 @@ public class ViewEvent extends AppCompatActivity implements View.OnClickListener
             Bundle bundle = intent.getExtras();
             if ( bundle != null ) {
                 id = bundle.getInt("ID");
+                Log.i("ID Evento", id + "");
             }
             if(id > 0){
                 loadEvento(id);
             }
         }catch (Exception ex){
-            Log.e("Cargar", ex.toString());
+            Log.e("Error Al Cargar", ex.toString());
         }
 
     }

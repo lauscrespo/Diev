@@ -7,4 +7,5 @@
     <string name="view_event">Evento</string>
     <string name="view_suggestion">Sugerencias de Vestuario</string>
     <string name="view_suggestion_details">Imagen</string>
+    <string name="crear_evento">CREAR EVENTO</string>
 </resources>

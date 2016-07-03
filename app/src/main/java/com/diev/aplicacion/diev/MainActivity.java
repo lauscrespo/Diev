@@ -1,5 +1,6 @@
 package com.diev.aplicacion.diev;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,13 +20,30 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.diev.aplicacion.diev.brl.UsuarioBrl;
 import com.diev.aplicacion.diev.model.Usuario;
+import com.diev.aplicacion.diev.tools.Constantes;
+import com.diev.aplicacion.diev.web.VolleySingleton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    UsuarioBrl objBrl;
+
+    /*
+   Etiqueta de depuracion
+    */
+    private static final String TAG = SplashActivity.class.getSimpleName();
+
+    private UsuarioBrl objBrl;
     private int usuarioId;
     private EditText txtNombre;
     private String Edad;
@@ -60,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveUsuario();
+                guardarUser();
             }
         });
 
@@ -110,8 +129,6 @@ public class MainActivity extends AppCompatActivity {
         try {
             objBrl.insert(usuario);
             Toast.makeText(this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, CalendarActivity.class);
-            startActivity(intent);
         } catch (Exception e) {
             Log.e("MainActivity", "error al insertar usuario");
         }
@@ -137,5 +154,111 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Guarda los datos de un usuario.
+     */
+    public void guardarUser() {
+
+        // Obtener valores actuales de los controles
+        final String nombre = txtNombre.getText().toString();
+        final String edad = Edad;
+        String sexo = "";
+        final String email = txtEmail.getText().toString();
+        if (rbMujer.isChecked()) {
+            sexo = "Mujer";
+        }
+        if (rbHombre.isChecked()) {
+            sexo = "Hombre";
+        }
+
+        HashMap<String, String> map = new HashMap<>();// Mapeo previo
+
+        map.put("nombre", nombre);
+        map.put("sexo", sexo);
+        map.put("edad", edad);
+        map.put("email", email);
+
+        // Crear nuevo objeto Json basado en el mapa
+        JSONObject jobject = new JSONObject(map);
+
+        // Depurando objeto Json...
+        Log.d(TAG, jobject.toString());
+
+        // Actualizar datos en el servidor
+        VolleySingleton.getInstance(this).addToRequestQueue(
+                new JsonObjectRequest(
+                        Request.Method.POST,
+                        Constantes.INSERT,
+                        jobject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar la respuesta del servidor
+                                procesarRespuesta(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, "Error Volley: " + error.getMessage());
+                            }
+                        }
+
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json; charset=utf-8");
+                        headers.put("Accept", "application/json");
+                        return headers;
+                    }
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8" + getParamsEncoding();
+                    }
+                }
+        );
+
+    }
+
+    /**
+     * Procesa la respuesta obtenida desde el sevidor
+     *
+     * @param response Objeto Json
+     */
+    private void procesarRespuesta(JSONObject response) {
+
+        try {
+            // Obtener estado
+            String estado = response.getString("estado");
+            // Obtener mensaje
+            String mensaje = response.getString("mensaje");
+
+            switch (estado) {
+                case "1":
+                    // Enviar código de éxito
+                    this.setResult(Activity.RESULT_OK);
+                    // Terminar actividad
+                    this.finish();
+                    break;
+
+                case "2":
+                    // Enviar código de falla
+                    this.setResult(Activity.RESULT_CANCELED);
+                    // Terminar actividad
+                    this.finish();
+                    break;
+            }
+
+            Intent intent = new Intent(this, CalendarActivity.class);
+            startActivity(intent);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

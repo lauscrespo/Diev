@@ -3,7 +3,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/item5"
-            android:icon="@drawable/ic_grid_on_white_24dp"
+            android:icon="@drawable/ic_event_white_24dp"
             android:tint="@color/colorAccent"
             android:title="MES" />
         <item

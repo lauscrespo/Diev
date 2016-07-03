@@ -39,7 +39,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     private DrawerLayout mDrawerLayout;
     private FloatingActionButton fab;
     private ListView eventsList;
-    EventoBrl eventoBrl;
+    private EventoBrl eventoBrl;
 
 
     @Override
@@ -100,7 +100,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         registerForContextMenu(eventsList);
     }
 
-    private void loadEvento() {
+    public void loadEvento() {
         ArrayList<Evento> eventos = new ArrayList<>();
         eventoBrl = new EventoBrl(this);
         try {
@@ -247,12 +247,13 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     private void deleteContact(final Evento objEvento) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Confirmación");
-        dialog.setMessage("¿Está seguro que desea eliminar el Ciudad seleccionada?");
+        dialog.setMessage("¿Está seguro que desea eliminar el Evento seleccionada?");
         dialog.setCancelable(false);
         dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int boton) {
                 try {
+
                     eventoBrl.delete(objEvento.getEventoId());
                 } catch (Exception e) {
                     Toast.makeText(SplashActivity.getInstance(), "Error al eliminar el evento", Toast.LENGTH_SHORT).show();

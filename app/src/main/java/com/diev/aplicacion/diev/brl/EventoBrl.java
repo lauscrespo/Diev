@@ -146,26 +146,27 @@ public class EventoBrl {
         return obj;
     }
 
-    public Evento selectByFecha(String  fecha) throws Exception {
+    public ArrayList<Evento> selectByFecha(String  fecha) throws Exception {
         DbConnection2 connection = new DbConnection2(contexto);
         connection.open();
 
+        ArrayList<Evento> list = new ArrayList<>();
         Cursor cursor = null;
-        Evento obj = null;
         try {
             cursor = connection.executeQuery(Table2.tbl_Evento, columns,
                     "fecha = ? ", new String[]{fecha});
 
-            if (cursor.moveToFirst()) {
-                obj = getEventoFromCursor(cursor);
-
+            while (cursor.moveToNext()) {
+                Evento obj = getEventoFromCursor(cursor);
+                list.add(obj);
             }
         } finally {
             if (cursor != null)
                 cursor.close();
+
             connection.close();
         }
-        return obj;
+        return list;
     }
 
     private Evento getEventoFromCursor(Cursor cursor) {
