@@ -6,6 +6,10 @@ import android.database.Cursor;
 
 import com.diev.aplicacion.diev.connection.DbConnection;
 import com.diev.aplicacion.diev.connection.Table;
+<<<<<<< HEAD
+=======
+import com.diev.aplicacion.diev.imagenes.Ropa;
+>>>>>>> Luis
 import com.diev.aplicacion.diev.model.Usuario;
 
 import java.util.ArrayList;
@@ -28,6 +32,10 @@ public class UsuarioBrl {
         this.columns = "usuarioId,nombre,sexo,edad, email".split(",");
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Luis
     public int insert(Usuario obj) throws Exception {
         if (obj == null)
             throw new Exception("El objeto ciudad no puede ser nulo");

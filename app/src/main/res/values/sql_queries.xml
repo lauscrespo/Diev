@@ -17,4 +17,17 @@
         fecha
         FROM eventoId = ?
     </string>
+<<<<<<< HEAD
+=======
+
+    <string name="select_evento_by_fecha">
+        SELECT eventoId,
+            nombre,
+            descripcion,
+            hora_ini,
+        hora_fin,
+        fecha
+        FROM fecha = ?
+    </string>
+>>>>>>> Luis
 </resources>

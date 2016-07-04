@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="50dp"
+    android:background="@drawable/viewevent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="60dp"
+        android:id="@+id/geo_container">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Santa Cruz de la Sierra"
+            android:id="@+id/ciudad"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:layout_below="@+id/temp"
+            android:layout_alignRight="@+id/temp"
+            android:layout_alignEnd="@+id/temp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BO"
+            android:id="@+id/pais"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ffffff"
+            android:textSize="25sp"
+            android:layout_below="@+id/ciudad"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0ºC"
+            android:id="@+id/temp"
+            android:textColor="#fffefe"
+            android:textSize="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+</LinearLayout>

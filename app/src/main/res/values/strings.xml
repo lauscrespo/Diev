@@ -1,6 +1,16 @@
 <resources>
-    <string name="app_name">Diev</string>
+    <string name="app_name">DIEV</string>
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
     <string name="action_update">Update</string>
     <string name="calendar_view">CALENDAR</string>
+=======
+    <string name="action_update">Clima</string>
+    <string name="calendar_view">DIEV</string>
+    <string name="weather_details">Clima</string>
+    <string name="view_event">Evento</string>
+    <string name="view_suggestion">Sugerencias de Vestuario</string>
+    <string name="view_suggestion_details">Imagen</string>
+    <string name="crear_evento">CREAR EVENTO</string>
+>>>>>>> Luis
 </resources>

@@ -1,10 +1,13 @@
 package com.diev.aplicacion.diev;
 
+<<<<<<< HEAD
 import android.content.Intent;
 import android.net.Uri;
+=======
+import android.app.Activity;
+import android.content.Intent;
+>>>>>>> Luis
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,10 +22,27 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 import com.diev.aplicacion.diev.brl.UsuarioBrl;
 import com.diev.aplicacion.diev.model.Usuario;
 
 import java.util.ArrayList;
+=======
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.diev.aplicacion.diev.brl.UsuarioBrl;
+import com.diev.aplicacion.diev.model.Usuario;
+import com.diev.aplicacion.diev.tools.Constantes;
+import com.diev.aplicacion.diev.web.VolleySingleton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+>>>>>>> Luis
 
 public class MainActivity extends AppCompatActivity {
     UsuarioBrl objBrl;
@@ -36,13 +56,34 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String PARAM_USUARIO_ID = "PARAM_USUARIO_ID";
 
+    /*
+   Etiqueta de depuracion
+    */
+    private static final String TAG = SplashActivity.class.getSimpleName();
+
+    private UsuarioBrl objBrl;
+    private int usuarioId;
+    private EditText txtNombre;
+    private String Edad;
+    private EditText txtEmail;
+    private RadioButton rbMujer;
+    private RadioButton rbHombre;
+
+
+    public static final String PARAM_USUARIO_ID = "PARAM_USUARIO_ID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
 
+=======
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+>>>>>>> Luis
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,12 +104,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveUsuario();
+<<<<<<< HEAD
+=======
+                guardarUser();
+>>>>>>> Luis
             }
         });
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> Luis
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                          public void onItemSelected(AdapterView<?> parentView, View SelectItemView, int position, long id) {
                                              Edad = parentView.getItemAtPosition(position).toString();
@@ -79,16 +127,22 @@ public class MainActivity extends AppCompatActivity {
 
                                          }
                                      }
+<<<<<<< HEAD
 
+=======
+>>>>>>> Luis
         );
 
     }
 
 
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> Luis
     ///evento que guarda el usuario
     private void saveUsuario() {
         String nombre = txtNombre.getText().toString();
@@ -120,10 +174,13 @@ public class MainActivity extends AppCompatActivity {
         try {
             objBrl.insert(usuario);
             Toast.makeText(this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
+<<<<<<< HEAD
 
             Intent intent= new Intent(this, CalendarActivity.class);
             startActivity(intent);
             finish();
+=======
+>>>>>>> Luis
         } catch (Exception e) {
             Log.e("MainActivity", "error al insertar usuario");
         }
@@ -149,5 +206,111 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Guarda los datos de un usuario.
+     */
+    public void guardarUser() {
+
+        // Obtener valores actuales de los controles
+        final String nombre = txtNombre.getText().toString();
+        final String edad = Edad;
+        String sexo = "";
+        final String email = txtEmail.getText().toString();
+        if (rbMujer.isChecked()) {
+            sexo = "Mujer";
+        }
+        if (rbHombre.isChecked()) {
+            sexo = "Hombre";
+        }
+
+        HashMap<String, String> map = new HashMap<>();// Mapeo previo
+
+        map.put("nombre", nombre);
+        map.put("sexo", sexo);
+        map.put("edad", edad);
+        map.put("email", email);
+
+        // Crear nuevo objeto Json basado en el mapa
+        JSONObject jobject = new JSONObject(map);
+
+        // Depurando objeto Json...
+        Log.d(TAG, jobject.toString());
+
+        // Actualizar datos en el servidor
+        VolleySingleton.getInstance(this).addToRequestQueue(
+                new JsonObjectRequest(
+                        Request.Method.POST,
+                        Constantes.INSERT,
+                        jobject,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                // Procesar la respuesta del servidor
+                                procesarRespuesta(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG, "Error Volley: " + error.getMessage());
+                            }
+                        }
+
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/json; charset=utf-8");
+                        headers.put("Accept", "application/json");
+                        return headers;
+                    }
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/json; charset=utf-8" + getParamsEncoding();
+                    }
+                }
+        );
+
+    }
+
+    /**
+     * Procesa la respuesta obtenida desde el sevidor
+     *
+     * @param response Objeto Json
+     */
+    private void procesarRespuesta(JSONObject response) {
+
+        try {
+            // Obtener estado
+            String estado = response.getString("estado");
+            // Obtener mensaje
+            String mensaje = response.getString("mensaje");
+
+            switch (estado) {
+                case "1":
+                    // Enviar código de éxito
+                    this.setResult(Activity.RESULT_OK);
+                    // Terminar actividad
+                    this.finish();
+                    break;
+
+                case "2":
+                    // Enviar código de falla
+                    this.setResult(Activity.RESULT_CANCELED);
+                    // Terminar actividad
+                    this.finish();
+                    break;
+            }
+
+            Intent intent = new Intent(this, CalendarActivity.class);
+            startActivity(intent);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }

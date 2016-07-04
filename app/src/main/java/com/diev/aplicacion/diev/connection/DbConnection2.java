@@ -122,7 +122,10 @@ public class DbConnection2 extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Luis
     }
 
     @Override
@@ -133,9 +136,14 @@ public class DbConnection2 extends SQLiteOpenHelper {
         if(oldVersion >= 2){
             //Ejecutar la version 3
         }*/
+<<<<<<< HEAD
     }
 
 
 
+=======
+
+    }
+>>>>>>> Luis
 }
 

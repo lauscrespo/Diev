@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:paddingTop="50dp"
+                android:text="Titulo"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/blanco"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txtNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/textView7"
+                android:background="@color/blanco"
+                android:ems="10"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/txtDescripcion"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:paddingTop="20dp"
+                android:text="Descripcion"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/blanco"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txtDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/linearLayout"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/blanco"
+                android:ems="10"
+                android:padding="10dp"
+                android:textColor="@color/colorAccent" />
+
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text="Hora Inicio"
+                android:textColor="@color/blanco"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_above="@+id/linearLayout2"
+                android:layout_alignLeft="@+id/linearLayout2"
+                android:layout_alignStart="@+id/linearLayout2"
+                android:orientation="horizontal"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp">
+
+                <EditText
+                    android:id="@+id/txtTime"
+                    android:layout_width="166dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@android:color/transparent"
+                    android:editable="false"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:padding="20px"
+                    android:text="Hora Inicio"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent">
+
+                    <requestFocus></requestFocus>
+                </EditText>
+
+                <ImageButton
+                    android:id="@+id/btnTimePicker"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_access_time_white_24dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text="Hora Fin"
+                android:textColor="@color/blanco"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_above="@+id/btn_saveEvent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:orientation="horizontal"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/txtTime2"
+                    android:layout_width="166dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@android:color/transparent"
+                    android:editable="false"
+                    android:ems="10"
+                    android:padding="20px"
+                    android:text="Hora Fin"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:layout_weight="0.09" />
+
+                <ImageButton
+                    android:id="@+id/btnTimePicker2"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_access_time_white_24dp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:id="@+id/btn_saveEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@color/colorAccent"
+                android:text="Guardar"
+                android:textColor="@android:color/white"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

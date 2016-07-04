@@ -26,7 +26,11 @@ public class EventoBrl {
 
     public EventoBrl(Context contexto) {
         this.contexto = contexto;
+<<<<<<< HEAD
         this.columns = "eventoId,usuario,descripcion,hora_ini, hora_fin, fecha".split(",");
+=======
+        this.columns = "eventoId,nombre,descripcion,hora_ini, hora_fin, fecha".split(",");
+>>>>>>> Luis
     }
 
     public int insert(Evento obj) throws Exception {
@@ -146,6 +150,32 @@ public class EventoBrl {
         return obj;
     }
 
+<<<<<<< HEAD
+=======
+    public ArrayList<Evento> selectByFecha(String fecha) throws Exception {
+        DbConnection2 connection = new DbConnection2(contexto);
+        connection.open();
+
+        ArrayList<Evento> list = new ArrayList<>();
+        Cursor cursor = null;
+        try {
+            cursor = connection.executeQuery(Table2.tbl_Evento, columns,
+                    "fecha = ? ", new String[]{fecha});
+
+            while (cursor.moveToNext()) {
+                Evento obj = getEventoFromCursor(cursor);
+                list.add(obj);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+
+            connection.close();
+        }
+        return list;
+    }
+
+>>>>>>> Luis
     private Evento getEventoFromCursor(Cursor cursor) {
         Evento obj = new Evento();
         obj.setEventoId(cursor.getInt(cursor.getColumnIndex(EVENTO_ID)));

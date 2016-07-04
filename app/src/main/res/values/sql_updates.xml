@@ -17,7 +17,11 @@
             descripcion TEXT NOT NULL,
             hora_ini TEXT NOT NULL,
             hora_fin TEXT NOT NULL,
+<<<<<<< HEAD
             fecha TEXT NOT NULL
+=======
+            fecha TEXT NOT NULL,
+>>>>>>> Luis
             PRIMARY KEY(eventoId)
         );
     </string>

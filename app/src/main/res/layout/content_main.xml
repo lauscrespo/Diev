@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
@@ -129,5 +131,155 @@
         android:background="@color/colorPrimary"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+=======
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/login"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="25dp">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/txt_Nombre"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignRight="@+id/txt_Nombre"
+                android:paddingTop="15dp"
+                android:text="Nombre y Apellido:"
+                android:textColor="@color/blanco"
+                android:textSize="25dp" />
+
+            <EditText
+                android:id="@+id/txt_Nombre"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/textView"
+                android:layout_centerHorizontal="true"
+                android:background="@color/blanco"
+                android:ems="10"
+                android:textColor="@color/colorAccent"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/txt_Nombre"
+                android:paddingTop="20dp"
+                android:text="Sexo:"
+                android:textColor="@color/blanco"
+                android:textSize="25dp" />
+
+            <RadioGroup
+                android:id="@+id/rdgGrupo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView3"
+                android:layout_column="0"
+                android:layout_span="2"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButtonHombre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:paddingRight="30dp"
+                    android:text="Hombre"
+                    android:textColor="@color/blanco"
+                    android:textSize="23dp" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonMujer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="Mujer"
+                    android:textColor="@color/blanco"
+                    android:textSize="23dp" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/rdgGrupo"
+                android:paddingTop="20dp"
+                android:text="Edad:"
+                android:textColor="@color/blanco"
+                android:textSize="25dp" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/textView4"
+                android:background="@color/blanco"
+                android:drawSelectorOnTop="true" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/spinner"
+                android:paddingTop="20dp"
+                android:text="Email:"
+                android:textColor="@color/blanco"
+                android:textSize="25dp" />
+
+            <EditText
+                android:id="@+id/txtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView5"
+                android:background="@color/blanco"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/colorAccent"
+                android:singleLine="true" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/colorAccent"
+                android:text="Guardar"
+                android:textColor="@color/blanco"
+                android:textSize="25dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+>>>>>>> Luis
 
 </RelativeLayout>

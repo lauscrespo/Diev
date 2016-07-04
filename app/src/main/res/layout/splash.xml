@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:background="@color/colorPrimary"
     android:weightSum="1">
 
@@ -23,5 +24,19 @@
         android:textSize="80px"
         android:paddingTop="30px"
         android:typeface="monospace"/>
+=======
+    android:background="@drawable/login"
+    android:weightSum="1">
+
+    <ImageView android:id="@+id/splashscreen"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@drawable/logo"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="45dp"
+        android:paddingBottom="45dp"
+        android:paddingLeft="120dp"
+        android:paddingRight="120dp" />
+>>>>>>> Luis
 
 </LinearLayout>

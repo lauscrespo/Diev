@@ -3,6 +3,7 @@ package com.diev.aplicacion.diev;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+<<<<<<< HEAD
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,15 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.widget.Toast;
+=======
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+>>>>>>> Luis
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,10 +29,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 
+<<<<<<< HEAD
 /**
  * Created by USUARIO on 11/06/2016.
  */
 
+=======
+>>>>>>> Luis
 public class CalendarView extends LinearLayout{
 
     // internal components
@@ -47,8 +60,13 @@ public class CalendarView extends LinearLayout{
     private String dateFormat;
     private Context context;
 
+<<<<<<< HEAD
     public CalendarView(Context context) {
 
+=======
+
+    public CalendarView(Context context) {
+>>>>>>> Luis
         super(context);
         this.context = context;
     }
@@ -106,6 +124,7 @@ public class CalendarView extends LinearLayout{
                 if(previewSelectedView != null){
                     previewSelectedView.setSelected(false);
                 }
+<<<<<<< HEAD
 
                 view.setSelected(true);
                 previewSelectedView = view;
@@ -114,6 +133,13 @@ public class CalendarView extends LinearLayout{
                 TextView txt_hide_date = (TextView)view.findViewById(R.id.txt_hide_date);
                 Toast.makeText(context, txt_hide_date.getText().toString(), Toast.LENGTH_SHORT).show();
 
+=======
+                view.setSelected(true);
+                previewSelectedView = view;
+                //Mostrar la fecha seleccionada
+                TextView txt_hide_date = (TextView)view.findViewById(R.id.txt_hide_date);
+                CrearEvento.setFecha(txt_hide_date.getText().toString());
+>>>>>>> Luis
             }
         });
     }
@@ -129,7 +155,10 @@ public class CalendarView extends LinearLayout{
     private void loadDateFormat(AttributeSet attrs)
     {
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.CalendarView);
+<<<<<<< HEAD
 
+=======
+>>>>>>> Luis
         try
         {
             // try to load provided date format, and fallback to default otherwise

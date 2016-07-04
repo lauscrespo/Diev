@@ -28,4 +28,14 @@
         <item>39</item>
     </string-array>
 
+<<<<<<< HEAD
+=======
+    <array name="places_picture">
+        <item>@drawable/login</item>
+        <item>@drawable/viewevent</item>
+        <item>@drawable/wallpaper</item>
+        <item>@drawable/logo</item>
+    </array>
+
+>>>>>>> Luis
 </resources>

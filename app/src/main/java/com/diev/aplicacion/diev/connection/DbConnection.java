@@ -10,7 +10,10 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.diev.aplicacion.diev.R;
+<<<<<<< HEAD
 import com.diev.aplicacion.diev.brl.UsuarioBrl;
+=======
+>>>>>>> Luis
 
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -128,6 +131,7 @@ public class DbConnection extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+<<<<<<< HEAD
 
     public String leer(){
         String result ="";
@@ -150,5 +154,7 @@ public class DbConnection extends SQLiteOpenHelper {
 
         return result;
     }
+=======
+>>>>>>> Luis
 }
 

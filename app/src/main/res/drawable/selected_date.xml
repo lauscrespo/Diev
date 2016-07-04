@@ -1,4 +1,5 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+<<<<<<< HEAD
     <item
         android:state_selected="true"
         android:drawable="@color/colorGreen">
@@ -11,4 +12,8 @@
 
     </item>
 
+=======
+    <item android:state_selected="true" android:drawable="@color/colorGreen"></item>
+    <item android:state_selected="false" android:drawable="@color/white"></item>
+>>>>>>> Luis
 </selector>
