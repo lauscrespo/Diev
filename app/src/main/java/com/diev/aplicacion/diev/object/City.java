@@ -1,4 +1,4 @@
-package com.diev.aplicacion.diev.model;
+package com.diev.aplicacion.diev.object;
 
 
 public class City {

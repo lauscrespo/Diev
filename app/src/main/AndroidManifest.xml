@@ -33,7 +33,7 @@
         <activity
             android:name=".CrearEvento"
             android:label="@string/crear_evento"
-            android:theme="@style/AppTheme.ActionBar.Transparent"/>
+            android:theme="@style/AppTheme.ActionBar.Transparent" />
         <activity
             android:name=".CalendarActivity"
             android:configChanges="orientation|screenSize"
@@ -83,7 +83,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="-lAIzaSyAO3djftLTf3aJkVcZcgIIlgdzJ2B9a0" />
+            android:value="AIzaSyAO3djftLTf3aJkVcZcgII-llgdzJ2B9a0" />
     </application>
 
 </manifest>
