@@ -62,27 +62,5 @@ public class Usuario {
         this.email = email;
     }
 
-    /**
-     * Compara los atributos de dos usuarios
-     *
-     * @param usuario Meta externa
-     * @return true si son iguales, false si hay cambios
-     */
-    public boolean compararCon(Usuario usuario) {
-        return this.nombre.compareTo(usuario.nombre) == 0 &&
-                this.sexo.compareTo(usuario.sexo) == 0 &&
-                this.edad.compareTo(usuario.edad) == 0 &&
-                this.email.compareTo(usuario.email) == 0;
-    }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "usuarioId=" + usuarioId +
-                ", nombre='" + nombre + '\'' +
-                ", sexo='" + sexo + '\'' +
-                ", edad='" + edad + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

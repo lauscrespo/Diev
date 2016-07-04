@@ -1,27 +1,21 @@
 package com.diev.aplicacion.diev;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.util.SortedList;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
@@ -35,8 +29,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -44,7 +36,7 @@ import static com.diev.aplicacion.diev.R.menu.update;
 
 
 public class WeekContent extends AppCompatActivity implements View.OnClickListener,  MonthLoader.MonthChangeListener,
-        WeekView.EventClickListener, WeekView.EventLongPressListener {
+        WeekView.EventClickListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
 
     private DrawerLayout mDrawerLayout;
     private WeekView mWeekView;
@@ -79,6 +71,7 @@ public class WeekContent extends AppCompatActivity implements View.OnClickListen
 
         // Set long press listener for events.
         mWeekView.setEventLongPressListener(this);
+        mWeekView.setEmptyViewLongPressListener(this);
 
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
@@ -183,32 +176,77 @@ public class WeekContent extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_new_event) {
+            if (CrearEvento.fecha.equals("")) {
+                Toast.makeText(this, "Seleccione la fecha", Toast.LENGTH_SHORT).show();
+            } else {
+                CrearEvento.precedencia = "week";
                 Intent intent = new Intent(this, CrearEvento.class);
                 startActivity(intent);
+            }
         }
     }
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         Bundle bundle = new Bundle();
-        try
-        {
-            int numero =  (int) event.getId();
-            bundle.putInt( "ID" , numero );
-        }
-        catch ( NumberFormatException ex ){
-            bundle.putInt( "ID" , 0 );
+        try {
+            int numero = (int) event.getId();
+            bundle.putInt("ID", numero);
+        } catch (NumberFormatException ex) {
+            bundle.putInt("ID", 0);
         }
         //Intent nos permite enlazar dos actividades
+        ViewEvent.precedencia = "week";
         Intent intent = new Intent(getBaseContext(), ViewEvent.class);
         //añadir parametros
-        intent.putExtras( bundle );
+        intent.putExtras(bundle);
         //ejuta intent
-        startActivity( intent );
+        startActivity(intent);
+    }
+
+    @Override
+    public void onEmptyViewLongPress(Calendar time) {
+        CrearEvento.setFecha(getEventFecha(time));
+        Toast.makeText(this, getEventFecha(time), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
+        try {
+            int numero = (int) event.getId();
+            Evento objEvento = new Evento();
+            objEvento.setEventoId(numero);
+            deleteContact(objEvento);
+
+
+        } catch (NumberFormatException ex) {
+            Log.e("WeekContent", ex.getMessage());
+        }
+    }
+
+    private void deleteContact(final Evento objEvento) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Confirmación");
+        dialog.setMessage("¿Está seguro que desea eliminar el Evento seleccionado?");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int boton) {
+                try {
+
+                    eventoBrl.delete(objEvento.getEventoId());
+                } catch (Exception e) {
+                    Toast.makeText(SplashActivity.getInstance(), "Error al eliminar el evento", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Toast.makeText(SplashActivity.getInstance(), "Evento eliminado", Toast.LENGTH_SHORT).show();
+                loadEvento();
+                Intent intent = new Intent(SplashActivity.getInstance(), WeekContent.class);
+                startActivity(intent);
+            }
+        });
+        dialog.setNegativeButton("No", null);
+        dialog.show();
     }
 
     @Override
@@ -236,7 +274,7 @@ public class WeekContent extends AppCompatActivity implements View.OnClickListen
             endTime.add(Calendar.HOUR, 1);
             endTime.set(Calendar.MONTH, newMonth - 1);
 
-            WeekViewEvent event = new WeekViewEvent(ev.getEventoId(), getEventTitle(startTime,ev.getNombre()), startTime, endTime);
+            WeekViewEvent event = new WeekViewEvent(ev.getEventoId(), getEventTitle(startTime, ev.getNombre()), startTime, endTime);
             event.setColor(getResources().getColor(R.color.event_color_01));
             events.add(event);
         }
@@ -289,5 +327,9 @@ public class WeekContent extends AppCompatActivity implements View.OnClickListen
 
     protected String getEventTitle(Calendar time, String nombre) {
         return String.format(nombre+" of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH)+1, time.get(Calendar.DAY_OF_MONTH));
+    }
+
+    protected String getEventFecha(Calendar time) {
+        return String.format("%d/%s/%s", time.get(Calendar.DAY_OF_MONTH), time.get(Calendar.MONTH) + 1, time.get(Calendar.YEAR));
     }
 }

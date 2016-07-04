@@ -14,12 +14,11 @@ import android.widget.TextView;
 
 import com.diev.aplicacion.diev.httpclient.HttpConnection;
 import com.diev.aplicacion.diev.httpclient.MethodType;
+import com.diev.aplicacion.diev.httpclient.RequestConfiguration;
 import com.diev.aplicacion.diev.httpclient.StandarRequestConfiguration;
 import com.diev.aplicacion.diev.listener.GenericListener;
 import com.diev.aplicacion.diev.listener.GeoLocationListener;
-import com.diev.aplicacion.diev.model.City;
-import com.diev.aplicacion.diev.httpclient.RequestConfiguration;
-
+import com.diev.aplicacion.diev.object.City;
 
 import org.json.JSONException;
 import org.json.JSONObject;

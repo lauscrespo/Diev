@@ -1,6 +1,5 @@
 package com.diev.aplicacion.diev;
 
-import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +22,7 @@ public class CrearEvento extends AppCompatActivity implements
         View.OnClickListener {
 
     static String fecha = "";
+    static String precedencia = "";
 
     EventoBrl objBrl;
     private int eventoId;
@@ -146,8 +146,21 @@ public class CrearEvento extends AppCompatActivity implements
         try {
             objBrl.insert(evento);
             Toast.makeText(this, "Evento Registrado", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, CalendarActivity.class);
-            this.startActivity(intent);
+            if (precedencia.equals("calendar")) {
+                Intent intent = new Intent(this, CalendarActivity.class);
+                this.startActivity(intent);
+            }
+            if (precedencia.equals("week")) {
+                Intent intent = new Intent(this, WeekContent.class);
+                this.startActivity(intent);
+            }
+            if (precedencia.equals("day")) {
+                Intent intent = new Intent(this, DayContent.class);
+                this.startActivity(intent);
+            }
+
+            CrearEvento.fecha = "";
+            precedencia = "";
 
         } catch (Exception e) {
             Log.e("Crear Evnto", "error al insertar evento " + e.getMessage());

@@ -1,30 +1,27 @@
 package com.diev.aplicacion.diev;
 
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
+import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
-import com.alamkanak.weekview.MonthLoader;
 import com.diev.aplicacion.diev.brl.EventoBrl;
 import com.diev.aplicacion.diev.model.Evento;
 
@@ -35,16 +32,17 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import static com.diev.aplicacion.diev.R.layout.day_view;
 import static com.diev.aplicacion.diev.R.menu.update;
 
-public class DayContent extends AppCompatActivity  implements MonthLoader.MonthChangeListener,
-        WeekView.EventClickListener, WeekView.EventLongPressListener, View.OnClickListener{
+public class DayContent extends AppCompatActivity implements MonthLoader.MonthChangeListener,
+        WeekView.EventClickListener, WeekView.EventLongPressListener, View.OnClickListener,
+        WeekView.EmptyViewLongPressListener {
 
     private DrawerLayout mDrawerLayout;
     private WeekView mWeekView;
     private FloatingActionButton fab;
     private EventoBrl eventoBrl;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +69,8 @@ public class DayContent extends AppCompatActivity  implements MonthLoader.MonthC
 
         // Set long press listener for events.
         mWeekView.setEventLongPressListener(this);
+
+        mWeekView.setEmptyViewLongPressListener(this);
 
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
@@ -100,7 +100,7 @@ public class DayContent extends AppCompatActivity  implements MonthLoader.MonthC
                         if ("MES".equals(menuItem.getTitle().toString())) {
                             iniciarMes();
                         }
-                        if("SEMANA".equals(menuItem.getTitle().toString())){
+                        if ("SEMANA".equals(menuItem.getTitle().toString())) {
                             iniciarSemana();
                         }
                         mDrawerLayout.closeDrawers();
@@ -171,47 +171,89 @@ public class DayContent extends AppCompatActivity  implements MonthLoader.MonthC
         startActivity(intent);
     }
 
-    public void iniciarSemana(){
+    public void iniciarSemana() {
         Intent intent = new Intent(this, WeekContent.class);
         startActivity(intent);
     }
 
     @Override
+    public void onEmptyViewLongPress(Calendar time) {
+        CrearEvento.setFecha(getEventFecha(time));
+        Toast.makeText(this, getEventFecha(time), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         Bundle bundle = new Bundle();
-        try
-        {
-            int numero =  (int) event.getId();
-            bundle.putInt( "ID" , numero );
-        }
-        catch ( NumberFormatException ex ){
-            bundle.putInt( "ID" , 0 );
+        try {
+            int numero = (int) event.getId();
+            bundle.putInt("ID", numero);
+        } catch (NumberFormatException ex) {
+            bundle.putInt("ID", 0);
         }
         //Intent nos permite enlazar dos actividades
+        ViewEvent.precedencia = "day";
         Intent intent = new Intent(getBaseContext(), ViewEvent.class);
         //añadir parametros
-        intent.putExtras( bundle );
+        intent.putExtras(bundle);
         //ejuta intent
-        startActivity( intent );
+        startActivity(intent);
+
     }
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
+        try {
+            int numero = (int) event.getId();
+            Evento objEvento = new Evento();
+            objEvento.setEventoId(numero);
+            deleteContact(objEvento);
 
+
+        } catch (NumberFormatException ex) {
+            Log.e("DayContent", ex.getMessage());
+        }
+
+
+    }
+
+    private void deleteContact(final Evento objEvento) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Confirmación");
+        dialog.setMessage("¿Está seguro que desea eliminar el Evento seleccionado?");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int boton) {
+                try {
+
+                    eventoBrl.delete(objEvento.getEventoId());
+                } catch (Exception e) {
+                    Toast.makeText(SplashActivity.getInstance(), "Error al eliminar el evento", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Toast.makeText(SplashActivity.getInstance(), "Evento eliminado", Toast.LENGTH_SHORT).show();
+                loadEvento();
+                Intent intent = new Intent(SplashActivity.getInstance(), DayContent.class);
+                startActivity(intent);
+            }
+        });
+        dialog.setNegativeButton("No", null);
+        dialog.show();
     }
 
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
 
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
-        for (int i=0; i<loadEvento().size();i++){
-            Evento ev=loadEvento().get(i);
+        for (int i = 0; i < loadEvento().size(); i++) {
+            Evento ev = loadEvento().get(i);
 
 
             Calendar startTime = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.US);
             try {
-                startTime.setTime(sdf.parse(ev.getFecha()+" "+ev.getHora_ini()));
+                startTime.setTime(sdf.parse(ev.getFecha() + " " + ev.getHora_ini()));
                 startTime.set(Calendar.MONTH, newMonth - 1);
                 startTime.set(Calendar.YEAR, newYear);
 
@@ -225,23 +267,24 @@ public class DayContent extends AppCompatActivity  implements MonthLoader.MonthC
             endTime.add(Calendar.HOUR, 1);
             endTime.set(Calendar.MONTH, newMonth - 1);
 
-            WeekViewEvent event = new WeekViewEvent(ev.getEventoId(), getEventTitle(startTime,ev.getNombre()), startTime, endTime);
+            WeekViewEvent event = new WeekViewEvent(ev.getEventoId(), getEventTitle(startTime, ev.getNombre()), startTime, endTime);
             event.setColor(getResources().getColor(R.color.event_color_01));
             events.add(event);
         }
         return events;
     }
-    private ArrayList<Evento>  loadEvento(){
+
+    private ArrayList<Evento> loadEvento() {
         ArrayList<Evento> eventos = new ArrayList<>();
         eventoBrl = new EventoBrl(this);
         try {
-            eventos=eventoBrl.selectAll();
+            eventos = eventoBrl.selectAll();
             Log.d("DayContent", "BD EVento " + eventos.size());
         } catch (Exception e) {
-            Log.d(e.getMessage(),"Error de Base Evento al cargar");
+            Log.d(e.getMessage(), "Error de Base Evento al cargar");
             e.printStackTrace();
         }
-        Log.d("DayContent","BD EVento "+eventos.size());
+        Log.d("DayContent", "BD EVento " + eventos.size());
         //ciudadList = (ListView) findViewById(R.id.listView);
         //ciudadList.setAdapter(new eventoAdapter(eventos, this));
         return eventos;
@@ -251,6 +294,7 @@ public class DayContent extends AppCompatActivity  implements MonthLoader.MonthC
     /**
      * Set up a date time interpreter which will show short date values when in week view and long
      * date values otherwise.
+     *
      * @param shortDate True if the date values should be short.
      */
     private void setupDateTimeInterpreter(final boolean shortDate) {
@@ -277,14 +321,23 @@ public class DayContent extends AppCompatActivity  implements MonthLoader.MonthC
     }
 
     protected String getEventTitle(Calendar time, String nombre) {
-        return String.format(nombre+" of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH)+1, time.get(Calendar.DAY_OF_MONTH));
+        return String.format(nombre + " of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH));
+    }
+
+    protected String getEventFecha(Calendar time) {
+        return String.format("%d/%s/%s", time.get(Calendar.DAY_OF_MONTH), time.get(Calendar.MONTH) + 1, time.get(Calendar.YEAR));
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_new_event) {
-            Intent intent = new Intent(this, CrearEvento.class);
-            startActivity(intent);
+            if (CrearEvento.fecha.equals("")) {
+                Toast.makeText(this, "Seleccione la fecha", Toast.LENGTH_SHORT).show();
+            } else {
+                CrearEvento.precedencia = "day";
+                Intent intent = new Intent(this, CrearEvento.class);
+                startActivity(intent);
+            }
         }
     }
 }

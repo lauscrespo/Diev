@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.diev.aplicacion.diev.R;
@@ -33,6 +31,7 @@ public class AdaptadorDeRopa extends BaseAdapter {
 
     public AdaptadorDeRopa(Context context) {
         this.context = context;
+        Weather w = new Weather();
         if (Integer.parseInt(Weather.getTemRopa().trim()) != 0)
             tempera = Integer.parseInt(Weather.getTemRopa().trim());
         else tempera = 25;
@@ -45,14 +44,13 @@ public class AdaptadorDeRopa extends BaseAdapter {
         if (tempera >= 27) {
             estacion = "verano";
         }
-        Log.d("Temperatura Ropa", tempera + "");
         //*******consultar tbl Usuario***//
         UsuarioBrl objBrl = new UsuarioBrl(SplashActivity.getInstance());
         try {
             ArrayList<Usuario> usuarios = objBrl.selectAll();
             sexo = usuarios.get(0).getSexo().trim();
             edad = Integer.parseInt(usuarios.get(0).getEdad().trim());
-            Log.d("Usuario Registrado", usuarios.get(0).toString());
+            //   Toast.makeText(SplashActivity.getInstance(), sexo+" "+edad, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.e("Ropa", "Error Consulta Usuario " + e.getMessage() + SplashActivity.getInstance());
         }
@@ -60,6 +58,7 @@ public class AdaptadorDeRopa extends BaseAdapter {
         if (sexo.equals("Mujer")) {
             if (edad >= 20 && edad < 30) {
                 nombre_img = "mujer_20_" + estacion.trim() + "_";
+
             }
             if (edad >= 30 && edad < 40) {
                 nombre_img = "mujer_30_" + estacion.trim() + "_";

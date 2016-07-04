@@ -146,7 +146,7 @@ public class EventoBrl {
         return obj;
     }
 
-    public ArrayList<Evento> selectByFecha(String  fecha) throws Exception {
+    public ArrayList<Evento> selectByFecha(String fecha) throws Exception {
         DbConnection2 connection = new DbConnection2(contexto);
         connection.open();
 

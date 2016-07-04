@@ -11,21 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.diev.aplicacion.diev.adapter.eventoAdapter;
 import com.diev.aplicacion.diev.brl.EventoBrl;
-import com.diev.aplicacion.diev.imagenes.Ropa;
 import com.diev.aplicacion.diev.model.Evento;
-
-import java.util.ArrayList;
 
 public class ViewEvent extends AppCompatActivity implements View.OnClickListener {
 
     public static final String ARG_IMBD_ID = "ARG_IMBD_ID";
-//    static int id=0;
+    static String precedencia = "";
     private TextView txtNombre;
     private TextView txtDescrip;
     private TextView txtini;
@@ -51,23 +45,24 @@ public class ViewEvent extends AppCompatActivity implements View.OnClickListener
         txtfin = (TextView) findViewById(R.id.horaFinEvento);
         txtfecha = (TextView) findViewById(R.id.fechaEvento);
 
-        try{
+        try {
             int id = 0;
             Intent intent = getIntent();
             Bundle bundle = intent.getExtras();
-            if ( bundle != null ) {
+            if (bundle != null) {
                 id = bundle.getInt("ID");
                 Log.i("ID Evento", id + "");
             }
-            if(id > 0){
+            if (id > 0) {
                 loadEvento(id);
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             Log.e("Error Al Cargar", ex.toString());
         }
 
     }
-    private void loadEvento(int id){
+
+    private void loadEvento(int id) {
         Evento evento = new Evento();
         eventoBrl = new EventoBrl(this);
         try {
@@ -110,8 +105,19 @@ public class ViewEvent extends AppCompatActivity implements View.OnClickListener
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(this, CalendarActivity.class);
-                startActivity(intent);
+                if (precedencia.equals("calendar")) {
+                    Intent intent = new Intent(this, CalendarActivity.class);
+                    startActivity(intent);
+                }
+                if (precedencia.equals("week")) {
+                    Intent intent = new Intent(this, WeekContent.class);
+                    startActivity(intent);
+                }
+                if (precedencia.equals("day")) {
+                    Intent intent = new Intent(this, DayContent.class);
+                    startActivity(intent);
+                }
+                precedencia = "";
                 return true;
         }
         return super.onOptionsItemSelected(item);

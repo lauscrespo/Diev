@@ -12,17 +12,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.diev.aplicacion.diev.brl.UsuarioBrl;
 import com.diev.aplicacion.diev.model.Usuario;
+import com.diev.aplicacion.diev.tools.Constantes;
+import com.diev.aplicacion.diev.web.VolleySingleton;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import com.diev.aplicacion.diev.tools.Constantes;
-import com.diev.aplicacion.diev.web.VolleySingleton;
-import com.google.gson.Gson;
 
 
 public class SplashActivity extends Activity {

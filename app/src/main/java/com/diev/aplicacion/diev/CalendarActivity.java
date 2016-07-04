@@ -115,23 +115,22 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         eventsList.setAdapter(new eventoAdapter(eventos, this));
         eventsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapter, View v, int position,long arg3) {
-                Evento eventoSeleccionado = (Evento)adapter.getItemAtPosition(position);
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
+                Evento eventoSeleccionado = (Evento) adapter.getItemAtPosition(position);
                 Bundle bundle = new Bundle();
-                try
-                {
-                    int numero =  eventoSeleccionado.getEventoId();
-                    bundle.putInt( "ID" , numero );
-                }
-                catch ( NumberFormatException ex ){
-                    bundle.putInt( "ID" , 0 );
+                try {
+                    int numero = eventoSeleccionado.getEventoId();
+                    bundle.putInt("ID", numero);
+                } catch (NumberFormatException ex) {
+                    bundle.putInt("ID", 0);
                 }
                 //Intent nos permite enlazar dos actividades
+                ViewEvent.precedencia = "calendar";
                 Intent intent = new Intent(getBaseContext(), ViewEvent.class);
                 //añadir parametros
-                intent.putExtras( bundle );
+                intent.putExtras(bundle);
                 //ejuta intent
-                startActivity( intent );
+                startActivity(intent);
             }
         });
     }
@@ -237,6 +236,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             if (CrearEvento.fecha.equals("")) {
                 Toast.makeText(this, "Seleccione la fecha", Toast.LENGTH_SHORT).show();
             } else {
+                CrearEvento.precedencia = "calendar";
                 Intent intent = new Intent(this, CrearEvento.class);
                 startActivity(intent);
             }
