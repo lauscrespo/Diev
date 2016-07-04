@@ -9,19 +9,16 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.diev.aplicacion.diev.httpclient.HttpConnection;
 import com.diev.aplicacion.diev.httpclient.MethodType;
+import com.diev.aplicacion.diev.httpclient.RequestConfiguration;
 import com.diev.aplicacion.diev.httpclient.StandarRequestConfiguration;
-import com.diev.aplicacion.diev.imagenes.Ropa;
 import com.diev.aplicacion.diev.listener.GenericListener;
 import com.diev.aplicacion.diev.listener.GeoLocationListener;
 import com.diev.aplicacion.diev.object.City;
-import com.diev.aplicacion.diev.httpclient.RequestConfiguration;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +40,7 @@ public class Weather extends AppCompatActivity {
     private Location currentLocation;
     private AsyncTask<RequestConfiguration, String, String> task;
 
-    private LinearLayout geoDetailsContainer;
+    private RelativeLayout geoDetailsContainer;
     private ProgressDialog progressDialog;
 
     private static String temRopa = "0";
@@ -63,7 +60,7 @@ public class Weather extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        geoDetailsContainer = (LinearLayout) findViewById(
+        geoDetailsContainer = (RelativeLayout) findViewById(
                 R.id.geo_container);
         geoDetailsContainer.setVisibility(View.GONE);
 

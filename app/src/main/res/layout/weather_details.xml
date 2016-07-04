@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/geo_container"
     android:padding="50dp"
     android:background="@drawable/viewevent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="60dp">
+        android:paddingTop="60dp"
+        android:id="@+id/geo_container">
 
         <TextView
             android:layout_width="wrap_content"

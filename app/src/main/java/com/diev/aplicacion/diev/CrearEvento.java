@@ -1,10 +1,11 @@
 package com.diev.aplicacion.diev;
 
-import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,11 +18,11 @@ import com.diev.aplicacion.diev.model.Evento;
 
 import java.util.Calendar;
 
-public class CrearEvento extends Activity implements
+public class CrearEvento extends AppCompatActivity implements
         View.OnClickListener {
 
-
     static String fecha = "";
+    static String precedencia = "";
 
     EventoBrl objBrl;
     private int eventoId;
@@ -38,6 +39,9 @@ public class CrearEvento extends Activity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         objBrl = new EventoBrl(SplashActivity.getInstance());
 
         btnTimePicker = (ImageButton) findViewById(R.id.btnTimePicker);
@@ -142,8 +146,21 @@ public class CrearEvento extends Activity implements
         try {
             objBrl.insert(evento);
             Toast.makeText(this, "Evento Registrado", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, CalendarActivity.class);
-            this.startActivity(intent);
+            if (precedencia.equals("calendar")) {
+                Intent intent = new Intent(this, CalendarActivity.class);
+                this.startActivity(intent);
+            }
+            if (precedencia.equals("week")) {
+                Intent intent = new Intent(this, WeekContent.class);
+                this.startActivity(intent);
+            }
+            if (precedencia.equals("day")) {
+                Intent intent = new Intent(this, DayContent.class);
+                this.startActivity(intent);
+            }
+
+            CrearEvento.fecha = "";
+            precedencia = "";
 
         } catch (Exception e) {
             Log.e("Crear Evnto", "error al insertar evento " + e.getMessage());
@@ -156,5 +173,15 @@ public class CrearEvento extends Activity implements
 
     public static void setFecha(String fecha) {
         CrearEvento.fecha = fecha;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

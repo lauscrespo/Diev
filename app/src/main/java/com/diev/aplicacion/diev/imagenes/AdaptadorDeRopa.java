@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.diev.aplicacion.diev.R;
@@ -33,6 +31,7 @@ public class AdaptadorDeRopa extends BaseAdapter {
 
     public AdaptadorDeRopa(Context context) {
         this.context = context;
+        Weather w = new Weather();
         if (Integer.parseInt(Weather.getTemRopa().trim()) != 0)
             tempera = Integer.parseInt(Weather.getTemRopa().trim());
         else tempera = 25;
@@ -108,7 +107,6 @@ public class AdaptadorDeRopa extends BaseAdapter {
 
     @Override
     public int getCount() {
-
         return ITEMS.length;
     }
 
@@ -135,15 +133,12 @@ public class AdaptadorDeRopa extends BaseAdapter {
             view = inflater.inflate(R.layout.grid_item, viewGroup, false);
         }
 
-        ImageView imagenCoche = (ImageView) view.findViewById(R.id.imagen_ropa);
-        TextView nombreCoche = (TextView) view.findViewById(R.id.nombre_ropa);
+        ImageView imagenRopa = (ImageView) view.findViewById(R.id.imagen_ropa);
 
         final Ropa item = getItem(position);
-        Glide.with(imagenCoche.getContext())
+        Glide.with(imagenRopa.getContext())
                 .load(item.getIdDrawable())
-                .into(imagenCoche);
-
-        nombreCoche.setText(item.getNombre());
+                .into(imagenRopa);
 
         return view;
     }

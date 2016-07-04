@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="#d9d4d4">
+    android:background="@color/switch_thumb_normal_material_dark">
 
     <GridView
         android:id="@+id/grid"
@@ -14,6 +14,8 @@
         android:horizontalSpacing="@dimen/espacio_grilla"
         android:numColumns="auto_fit"
         android:padding="@dimen/espacio_grilla"
-        android:verticalSpacing="@dimen/espacio_grilla" />
+        android:verticalSpacing="@dimen/espacio_grilla"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

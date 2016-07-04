@@ -4,7 +4,4 @@
     <item android:id="@+id/action_delete_evento"
         android:title="Eliminar Evento">
     </item>
-    <item android:id="@+id/action_detalle_evento"
-        android:title="Detalle Evento">
-    </item>
 </menu>

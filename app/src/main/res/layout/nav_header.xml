@@ -4,8 +4,7 @@
     android:layout_height="@dimen/navheader_height"
     android:background="@drawable/wallpaper"
     android:orientation="vertical"
-    android:padding="@dimen/md_keylines"
-    android:weightSum="1">
+    android:padding="@dimen/md_keylines">
 
 
     <TextView

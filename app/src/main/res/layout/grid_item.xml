@@ -2,22 +2,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
-
+    android:layout_height="200dp"
+    android:padding="10dp">
     <ImageView
         android:id="@+id/imagen_ropa"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
-
-    <TextView
-        android:id="@+id/nombre_ropa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/background_footer"
-        android:maxLines="1"
-        android:padding="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:textColor="@android:color/white" />
 </FrameLayout>

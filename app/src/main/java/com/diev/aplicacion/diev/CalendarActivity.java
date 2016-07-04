@@ -23,8 +23,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.alamkanak.weekview.WeekView;
-import com.alamkanak.weekview.WeekViewEvent;
 import com.diev.aplicacion.diev.adapter.eventoAdapter;
 import com.diev.aplicacion.diev.brl.EventoBrl;
 import com.diev.aplicacion.diev.model.Evento;
@@ -32,17 +30,16 @@ import com.diev.aplicacion.diev.model.Evento;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 
 import static com.diev.aplicacion.diev.R.menu.update;
 
-public class CalendarActivity extends AppCompatActivity implements  View.OnClickListener {
+public class CalendarActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private DrawerLayout mDrawerLayout;
     private FloatingActionButton fab;
-    private ListView ciudadList;
-    EventoBrl eventoBrl;
+    private ListView eventsList;
+    private EventoBrl eventoBrl;
 
 
     @Override
@@ -66,7 +63,6 @@ public class CalendarActivity extends AppCompatActivity implements  View.OnClick
 
         fab = ((FloatingActionButton) findViewById(R.id.btn_new_event));
         fab.setOnClickListener(this);
-
 
 
         // Adding menu icon to Toolbar
@@ -101,34 +97,58 @@ public class CalendarActivity extends AppCompatActivity implements  View.OnClick
                 });
 
         loadEvento();
-        registerForContextMenu(ciudadList);
-
+        registerForContextMenu(eventsList);
     }
 
-    private void loadEvento(){
+    public void loadEvento() {
         ArrayList<Evento> eventos = new ArrayList<>();
         eventoBrl = new EventoBrl(this);
         try {
-            eventos=eventoBrl.selectAll();
-            Log.d("CalendarView","BD EVento "+eventos.size());
+            eventos = eventoBrl.selectAll();
+            Log.d("CalendarView", "BD EVento " + eventos.size());
         } catch (Exception e) {
-            Log.d(e.getMessage(),"Error de Base Evento al cargar");
+            Log.d(e.getMessage(), "Error de Base Evento al cargar");
             e.printStackTrace();
         }
-        Log.d("CalendarView","BD EVento "+eventos.size());
-        ciudadList = (ListView) findViewById(R.id.listView);
-        ciudadList.setAdapter(new eventoAdapter(eventos, this));
+        Log.d("CalendarView", "BD EVento " + eventos.size());
+        eventsList = (ListView) findViewById(R.id.listView);
+        eventsList.setAdapter(new eventoAdapter(eventos, this));
+        eventsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long arg3) {
+                Evento eventoSeleccionado = (Evento) adapter.getItemAtPosition(position);
+                Bundle bundle = new Bundle();
+                try {
+                    int numero = eventoSeleccionado.getEventoId();
+                    bundle.putInt("ID", numero);
+                } catch (NumberFormatException ex) {
+                    bundle.putInt("ID", 0);
+                }
+                //Intent nos permite enlazar dos actividades
+                ViewEvent.precedencia = "calendar";
+                Intent intent = new Intent(getBaseContext(), ViewEvent.class);
+                //añadir parametros
+                intent.putExtras(bundle);
+                //ejuta intent
+                startActivity(intent);
+            }
+        });
     }
+
     @Override
     protected void onResume() {
         super.onResume();
     }
 
     @Override
-    public void onStart() { super.onStart(); }
+    public void onStart() {
+        super.onStart();
+    }
 
     @Override
-    public void onStop() { super.onStop(); }
+    public void onStop() {
+        super.onStop();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -141,6 +161,7 @@ public class CalendarActivity extends AppCompatActivity implements  View.OnClick
     protected void onPause() {
         super.onPause();
     }
+
     //mantener pulsado para eliminar
     public void onCreateContextMenu(ContextMenu menu, View view,
                                     ContextMenu.ContextMenuInfo menuInfo) {
@@ -150,6 +171,7 @@ public class CalendarActivity extends AppCompatActivity implements  View.OnClick
         inflater.inflate(R.menu.context_menu_evento, menu);
 
     }
+
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item
                 .getMenuInfo();
@@ -161,15 +183,8 @@ public class CalendarActivity extends AppCompatActivity implements  View.OnClick
 
         switch (item.getItemId()) {
             case R.id.action_delete_evento:
-                Evento objEvento = (Evento) ciudadList.getAdapter().getItem(itemPosition);
+                Evento objEvento = (Evento) eventsList.getAdapter().getItem(itemPosition);
                 deleteContact(objEvento);
-
-        }
-        switch (item.getItemId()) {
-            case R.id.action_detalle_evento:
-                ViewEvent.id=item.getItemId();
-                Intent intent = new Intent(this, ViewEvent.class);
-                startActivity(intent);
 
         }
         return true;
@@ -200,47 +215,45 @@ public class CalendarActivity extends AppCompatActivity implements  View.OnClick
         startActivity(Intent.createChooser(share, "Compartir usando..."));
     }
 
-    public void iniciarWeather(){
+    public void iniciarWeather() {
         Intent intent = new Intent(this, Weather.class);
         startActivity(intent);
     }
-    public void iniciarSemana(){
+
+    public void iniciarSemana() {
         Intent intent = new Intent(this, WeekContent.class);
         startActivity(intent);
     }
 
-    public void iniciarDia(){
+    public void iniciarDia() {
         Intent intent = new Intent(this, DayContent.class);
         startActivity(intent);
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btn_new_event){
-            if(CrearEvento.fecha.equals("")){
+        if (v.getId() == R.id.btn_new_event) {
+            if (CrearEvento.fecha.equals("")) {
                 Toast.makeText(this, "Seleccione la fecha", Toast.LENGTH_SHORT).show();
-            }
-            else{
+            } else {
+                CrearEvento.precedencia = "calendar";
                 Intent intent = new Intent(this, CrearEvento.class);
                 startActivity(intent);
             }
-
         }
     }
 
 
-
-    private void deleteContact(final Evento objEvento){
+    private void deleteContact(final Evento objEvento) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-
         dialog.setTitle("Confirmación");
-        dialog.setMessage("¿Está seguro que desea eliminar el Ciudad seleccionada?");
+        dialog.setMessage("¿Está seguro que desea eliminar el Evento seleccionada?");
         dialog.setCancelable(false);
-
         dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int boton) {
                 try {
+
                     eventoBrl.delete(objEvento.getEventoId());
                 } catch (Exception e) {
                     Toast.makeText(SplashActivity.getInstance(), "Error al eliminar el evento", Toast.LENGTH_SHORT).show();
@@ -250,9 +263,7 @@ public class CalendarActivity extends AppCompatActivity implements  View.OnClick
                 loadEvento();
             }
         });
-
         dialog.setNegativeButton("No", null);
-
         dialog.show();
     }
 }
